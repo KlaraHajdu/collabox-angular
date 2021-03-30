@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment.localhost';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'collabox-angular';
+
+
+  constructor () {
+
+    console.log();
+    console.log(environment.firebaseConfig)
+  }
+
 }
