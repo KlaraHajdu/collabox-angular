@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment.localhost';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ export class AppComponent {
   constructor () {
 
     console.log();
-    console.log(environment.firebaseConfig)
+    console.log(environment)
   }
 
 }

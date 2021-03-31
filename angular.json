@@ -86,7 +86,7 @@
               "browserTarget": "collabox-angular:build:production"
             },
             "localhost": {
-              "browserTarget": "collabox-angular:build"
+              "browserTarget": "collabox-angular:build:localhost"
             }
           }
         },
