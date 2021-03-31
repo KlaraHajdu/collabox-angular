@@ -13,7 +13,7 @@ export class AppComponent {
   constructor () {
 
     console.log();
-    console.log(environment)
+    console.log(environment.firebaseConfig)
   }
 
 }
