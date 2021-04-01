@@ -1,0 +1,29 @@
+@use "../../../styles" as s
+
+.sidebar-container
+  display: flex
+  // flex-grow: 5
+  flex-direction: column
+  padding: 1rem
+
+.title
+  @include s.collabox-title
+  align-self: center
+
+.title:hover
+  cursor: pointer
+
+.wrapper
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  padding: 1rem
+  border-radius: 10px
+  background-color: rgba(s.$theme-color-yellow, 0.65)
+
+
+.subtitle
+    font-size: 1.2rem
+    font-weight: 600
+    color: s.$theme-color-light-turquiose
+    margin-bottom: 1rem

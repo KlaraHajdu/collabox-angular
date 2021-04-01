@@ -1,2 +1,35 @@
+@use "../../../styles" as s
+
+.landing-container
+  display: flex
+  flex-direction: row
+  width: 99vw
+
+.sidebar
+  width:100%
+
+.right-container
+  display: flex
+  flex-direction: column
+  width: 100%
+
 div
   color: white
+
+button
+  align-self: flex-end
+  width: 8rem
+  margin-top: 2rem
+  margin-right: 1rem
+  color: s.$theme-color-green
+  font-size: 1.2rem
+  font-family: Montserrat, Arial, Helvetica, sans-serif
+  border: 0
+  background-color: transparent
+  outline: none
+  cursor: pointer
+
+button:hover
+  cursor: pointer
+  transition: 0.25s ease-in-out
+  transform: scale(1.1)

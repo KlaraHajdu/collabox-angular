@@ -1,0 +1,27 @@
+@use "../../../styles"
+
+.container
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  height: 40vh
+
+.title
+  @include styles.collabox-title
+
+button
+  width: 200px
+  padding: 10px
+  border-radius: 10px
+  border-width: 0
+  outline: none
+  box-shadow: -1px 6px 25px -4px #000000
+  font-size: 1.3rem
+  color: styles.$theme-color-dark-green
+  background-color: styles.$theme-color-green
+
+button:hover
+  cursor: pointer
+  transition: 0.25s ease-in-out
+  transform: scale(1.1)
