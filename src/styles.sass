@@ -5,7 +5,7 @@
 $theme-color-green: #A3D11F
 $theme-color-yellow: #F4ED31
 $theme-color-turquoise: #3CCFC6
-$theme-color-light-turquiose: #96EDE8
+$theme-color-light-turquoise: #96EDE8
 $theme-color-purple: #6C2E6D
 $theme-color-dark-green: #056066
 
@@ -22,3 +22,52 @@ body
   background-size: cover
   font-family: Montserrat, Arial, Helvetica, sans-serif
 
+
+@mixin add-container
+  display: flex
+  flex-direction: column
+  align-items: center
+  margin: 2rem
+
+@mixin add-wrapper
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 60%
+  border-radius: 10px
+  box-shadow: -1px 6px 25px -4px #000000
+
+@mixin title
+  font-weight: 500
+  font-size: 1.4rem
+  color: $theme-color-light-turquoise
+
+@mixin form-wrapper
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 80%
+  margin-bottom: 1rem
+
+@mixin add-input
+  border-radius: 5px
+  border-width: 0
+  width: 100%
+  color: $theme-color-purple
+  font-size: 1.2rem
+  outline: none
+  line-height: 25px
+
+
+@mixin submit-button
+    border-radius: 10px
+    border-width: 0px
+    color: $theme-color-turquoise
+    background-color:  $theme-color-purple
+    font-family: Montserrat, Arial, Helvetica, sans-serif
+    font-size: 1rem
+    font-weight: 600
+    min-height: 20px
+    outline: none
+    padding: 0.5rem 0.8rem
+    cursor: pointer

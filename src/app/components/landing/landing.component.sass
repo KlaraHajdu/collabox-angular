@@ -3,9 +3,12 @@
 .landing-container
   display: flex
   flex-direction: row
-  width: 99vw
+  @media screen and ( max-width: 800px  )
+    flex-wrap: wrap
+
 
 .sidebar
+  max-width: 500px
   width:100%
 
 .right-container
@@ -18,9 +21,8 @@ div
 
 button
   align-self: flex-end
-  width: 8rem
   margin-top: 2rem
-  margin-right: 1rem
+  margin-right: 2rem
   color: s.$theme-color-green
   font-size: 1.2rem
   font-family: Montserrat, Arial, Helvetica, sans-serif

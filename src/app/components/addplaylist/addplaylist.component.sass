@@ -1,0 +1,31 @@
+@use "../../../styles"
+
+.add-container
+  @include styles.add-container
+
+.add-wrapper
+  @include styles.add-wrapper
+
+.title
+  @include styles.title
+
+.form-wrapper
+  @include styles.form-wrapper
+
+.submit-button
+  @include styles.submit-button
+
+.submit-button:hover
+  @include styles.submit-button
+  transition: 0.25s ease-in-out
+  transform: scale(1.1)
+
+.add-input
+  @include styles.add-input
+
+.add-input::placeholder
+  color: styles.$theme-color-purple
+  opacity: 0.3
+
+
+
