@@ -11,9 +11,16 @@ export class SidebarComponent implements OnInit {
   onClick() {
     this.router.navigate(['/']);
   }
+
+  createPlaylist() {
+    console.log("will navigate to addplaylist")
+    this.router.navigate(['/addplaylist']);
+  }
+
   constructor(public router: Router) { }
 
   ngOnInit(): void {
+    console.log("sidebar")
   }
 
 }
