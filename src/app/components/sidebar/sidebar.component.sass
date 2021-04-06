@@ -2,7 +2,6 @@
 
 .sidebar-container
   display: flex
-  // flex-grow: 5
   flex-direction: column
   padding: 1rem
 
@@ -21,9 +20,21 @@
   border-radius: 10px
   background-color: rgba(s.$theme-color-yellow, 0.65)
 
+  .subtitle-wrapper
+    display: flex
+    justify-content: space-between
 
 .subtitle
     font-size: 1.2rem
     font-weight: 600
     color: s.$theme-color-light-turquiose
     margin-bottom: 1rem
+
+.icon
+  color: s.$theme-color-light-turquiose
+  vertical-align: bottom
+
+.icon:hover
+  cursor: pointer
+  transition: 0.25s ease-in-out
+  transform: scale(1.3)

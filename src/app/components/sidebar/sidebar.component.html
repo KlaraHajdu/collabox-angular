@@ -1,7 +1,16 @@
 <div class="sidebar-container">
   <div class="title" (click)="onClick()">COLLABOX</div>
   <div class="wrapper">
-    <p class="subtitle">Own playlists</p>
-    <p class="subtitle">Others' playlists</p>
+    <div class="subtitle-wrapper">
+      <span class="subtitle">Own playlists</span>
+      <mat-icon class="material-icons-round" class="icon" (click)="createPlaylist()">
+        add
+      </mat-icon>
+    </div>
+    <div class="subtitle-wrapper">
+      <span class="subtitle">Others' playlists</span>
+      <mat-icon class="material-icons-round" class="icon">
+        add</mat-icon>
+    </div>
   </div>
 </div>
