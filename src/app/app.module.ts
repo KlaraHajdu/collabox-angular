@@ -6,28 +6,26 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularMaterialModule } from './angular-material.module';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import {LandingModule} from './components/landing/landing.module';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddPlaylistComponent } from './components/addplaylist/addplaylist.component';
 import { AuthService } from './services/auth-service.service';
-// import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // LandingComponent,
+    LandingComponent,
     LoginComponent,
-    // SidebarComponent,
+    SidebarComponent,
     AddPlaylistComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LandingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
