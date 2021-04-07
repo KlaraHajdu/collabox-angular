@@ -4,10 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
 
-import playlistReducer, { name as playlistFeatureKey } from './store/slices/playlists/slice';
+// import playlistReducer from './store/slices/playlists/slice';
+import store from './store/index';
 import { AngularMaterialModule } from './angular-material.module';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { AddPlaylistComponent } from './components/addplaylist/addplaylist.compo
 import { AuthService } from './services/auth-service.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import RootState from './store/RootState';
 
 @NgModule({
   declarations: [
@@ -30,20 +31,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({playlist: playlistReducer}),
-    StoreDevtoolsModule.instrument({
-      logOnly: environment.production, 
-    }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    StoreDevtoolsModule
+    NgReduxModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(ngRedux: NgRedux<RootState>) {
+    ngRedux.provideStore(store);
+  }
+ }

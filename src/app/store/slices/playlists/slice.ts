@@ -10,6 +10,8 @@ import PlaylistData from '../../../types/PlaylistData'
 import Song from '../../../types/Song'
 import PlaylistType from '../../../types/PlaylistType'
 import VoteType from '../../../types/VoteType'
+import { Injectable } from '@angular/core'
+
 
 const initialState: PlaylistsState = {
     ownPlaylists: null,
@@ -510,6 +512,7 @@ export default slice.reducer
 export const playlistsActions = slice.actions
 
 export const name = slice.name
+
 
 export const playlistsAsyncActions = {
     // subscribeToPlaylist,
