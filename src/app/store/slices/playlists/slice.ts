@@ -34,6 +34,7 @@ string,
         const {currentUser} = authentication
         const playlistName = payload
         try {
+          console.log("asyncthunk")
             // const id = await firestoreApi.createPlaylist(currentUser!.id, currentUser!.name, playlistName)
             const id = "fakeId"
             return id

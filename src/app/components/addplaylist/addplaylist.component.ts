@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {playlistsActions} from '../../store/slices/playlists/slice';
 import {playlistsAsyncActions} from '../../store/slices/playlists/slice';
+import { AsyncThunkAction } from '@reduxjs/toolkit';
 
 
 @Component({
@@ -29,10 +30,14 @@ export class AddPlaylistComponent implements OnInit {
 
   onSubmit() {
 
-    this._firestoreService.createPlaylist(this.playlistForm.value)
+    // this._firestoreService.createPlaylist(this.playlistForm.value)
 
-    this.store.dispatch(playlistsAsyncActions.createPlaylist('oebrcbnrec'))
-    this.store.dispatch(playlistsActions.SET_OWN_PLAYLISTS([{id:'sbdchbs', playlistName:'jece'}]))
+
+    // TypeError:     Dispatch expected an object, instead it received a function.     If you're using the createAction function, make sure to invoke the function
+   // before dispatching the action. For example, someAction should be someAction().:
+    this.store.dispatch<any>(playlistsAsyncActions.createPlaylist('oebrcbnrec'))
+
+    // this.store.dispatch(playlistsActions.SET_OWN_PLAYLISTS([{id:'sbdchbs', playlistName:'jece'}])) // this works
 
   }
 
