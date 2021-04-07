@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import firebase from 'firebase/app'
-import User from '../../../types/user'
+import User from '../../../types/User'
 import AuthState from './types/AuthState'
 // import { subscribeToAuthentication } from '../../../service/authentication'
 

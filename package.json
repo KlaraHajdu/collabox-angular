@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",
     "@ngrx/store": "^11.1.0",
+    "@ngrx/store-devtools": "^11.1.0",
     "@reduxjs/toolkit": "^1.5.1",
     "firebase": "^8.3.1",
     "get-youtube-id": "^1.0.1",

@@ -13,18 +13,14 @@ export class FirestoreService {
   item: Observable<Item>;
 
   constructor(private afs: AngularFirestore) {
-    this.itemDoc = afs.doc<Item>('users/4HyALnmW8XVYvJ3FhLdwx1BwMkz2');
+    this.itemDoc = afs.doc<Item>('playlists/Zz9XiYrJav15hbDHfoes');
     this.item = this.itemDoc.valueChanges();
-    console.log(this.item)
+
    }
 
-  testRead() {
-
-  }
-  testCreate() {
-    let testObject = {}
-
-
+  createPlaylist(playlistForm) {
+    console.log(playlistForm)
+    this.itemDoc.update(playlistForm)
   }
 
 }
