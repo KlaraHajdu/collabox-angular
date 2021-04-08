@@ -6,7 +6,6 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 
-// import playlistReducer from './store/slices/playlists/slice';
 import store from './store/index';
 import { AngularMaterialModule } from './angular-material.module';
 import { environment } from '../environments/environment';

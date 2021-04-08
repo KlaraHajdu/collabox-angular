@@ -3,6 +3,9 @@ import firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { authenticationActions } from '../store/slices/authentication/slice';
+import { NgRedux } from '@angular-redux/store';
+import RootState from '../store/RootState'
 import User  from "../types/User";
 
 @Injectable({
@@ -15,7 +18,8 @@ export class AuthService {
     public firestore: AngularFirestore,
     public authentication: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private ngRedux: NgRedux<RootState>
   ) {
 
     this.authentication.authState.subscribe(user => {
@@ -23,10 +27,15 @@ export class AuthService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
+        this.ngRedux.dispatch<any>(authenticationActions
+          .SET_CURRENT_USER({id: this.userData.uid, name: this.userData.displayName, email: this.userData.email }))
       } else {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
+        this.ngRedux.dispatch<any>(authenticationActions
+          .SET_CURRENT_USER())
       }
+
     })
 
   }

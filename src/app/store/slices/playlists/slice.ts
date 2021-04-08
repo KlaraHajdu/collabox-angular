@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import getYoutubeId from 'get-youtube-id'
 import PlaylistsState from './types/PlaylistsState'
-// import { firestoreApi } from '../../../service/firestoreApi'
+import { firestoreApi } from '../../../services/firestore/firestoreApi'
 import checkIfVideoDurationIsOk  from '../../../utils/checkIfVideoDurationIsOk'
 // import getVideoDetails from '../../../utils/youtubeApi'
 import RootState from '../../RootState'
@@ -10,7 +10,6 @@ import PlaylistData from '../../../types/PlaylistData'
 import Song from '../../../types/Song'
 import PlaylistType from '../../../types/PlaylistType'
 import VoteType from '../../../types/VoteType'
-import { Injectable } from '@angular/core'
 
 
 const initialState: PlaylistsState = {
@@ -36,9 +35,7 @@ string,
         const {currentUser} = authentication
         const playlistName = payload
         try {
-          console.log("asyncthunk")
-            // const id = await firestoreApi.createPlaylist(currentUser!.id, currentUser!.name, playlistName)
-            const id = "fakeId"
+            const id = await firestoreApi.createPlaylist(currentUser!.id, currentUser!.name, playlistName)
             return id
         } catch (error) {
             return thunkApi.rejectWithValue('database_error')
