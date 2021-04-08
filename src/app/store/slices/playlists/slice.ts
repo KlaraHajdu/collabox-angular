@@ -316,7 +316,6 @@ const slice = createSlice({
             state.currentPlaylist = newState
         },
         SET_OWN_PLAYLISTS: (state, action: PayloadAction<Pick<PlaylistData, 'id'| 'playlistName'>[]>) => {
-          console.log(state.ownPlaylists)
             state.ownPlaylists = action.payload
         },
         SET_OTHER_PLAYLISTS: (state, action: PayloadAction<PlaylistData[]>) => {
@@ -430,42 +429,42 @@ const slice = createSlice({
 //     }
 // )
 
-// const subscribeToPlaylist = createAsyncThunk<
-//     string,
-//     string,
-//     { state: RootState } >(
-//     'playlists/subscribeToPlaylist',
-//         async (payload, thunkApi) => {
-//         const id = payload;
+const subscribeToPlaylist = createAsyncThunk<
+    string,
+    string,
+    { state: RootState } >(
+    'playlists/subscribeToPlaylist',
+        async (payload, thunkApi) => {
+        const id = payload;
 
-//         const observer = (playlist: Playlist) => {
-//             thunkApi.dispatch(slice.actions.SET_PLAYLIST(playlist))
-//         }
-//         try {
-//             await firestoreApi.subscribeToPlaylist(id, observer)
-//             return 'subscribed_to_playlist'
-//         } catch (error) {
-//             return thunkApi.rejectWithValue('database_error')
-//         }
-//     }
-// )
+        const observer = (playlist: Playlist) => {
+            thunkApi.dispatch(slice.actions.SET_PLAYLIST(playlist))
+        }
+        try {
+            await firestoreApi.subscribeToPlaylist(id, observer)
+            return 'subscribed_to_playlist'
+        } catch (error) {
+            return thunkApi.rejectWithValue('database_error')
+        }
+    }
+)
 
-// const unsubscribeFromPlaylist = createAsyncThunk<
-//     string,
-//     string,
-//     { state: RootState } >(
-//     'playlists/unsubscribeFromPlaylist',
-//         async (payload, thunkApi) => {
-//         const id = payload;
+const unsubscribeFromPlaylist = createAsyncThunk<
+    string,
+    string,
+    { state: RootState } >(
+    'playlists/unsubscribeFromPlaylist',
+        async (payload, thunkApi) => {
+        const id = payload;
 
-//         try {
-//             await firestoreApi.unsubscribeFromPlaylist(id)
-//             return 'unsubscribed_from_playlist'
-//         } catch (error) {
-//             return thunkApi.rejectWithValue('database_error')
-//         }
-//     }
-// )
+        try {
+            await firestoreApi.unsubscribeFromPlaylist(id)
+            return 'unsubscribed_from_playlist'
+        } catch (error) {
+            return thunkApi.rejectWithValue('database_error')
+        }
+    }
+)
 
 // const subscribeToSongsCollection = createAsyncThunk<
 //     string,
@@ -512,8 +511,8 @@ export const name = slice.name
 
 
 export const playlistsAsyncActions = {
-    // subscribeToPlaylist,
-    // unsubscribeFromPlaylist,
+    subscribeToPlaylist,
+    unsubscribeFromPlaylist,
     // subscribeToSongsCollection,
     // unsubscribeFromSongsCollection,
     createPlaylist,

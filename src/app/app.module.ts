@@ -18,6 +18,7 @@ import { AuthService } from './services/auth-service.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import RootState from './store/RootState';
+import { PlaylistPageComponent } from './components/playlistpage/playlistpage.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import RootState from './store/RootState';
     LandingComponent,
     LoginComponent,
     SidebarComponent,
-    AddPlaylistComponent
+    AddPlaylistComponent,
+    PlaylistPageComponent
   ],
   imports: [
     BrowserModule,

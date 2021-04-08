@@ -12,9 +12,7 @@ let unsubscribeFromOwnP: (id: string) => void | undefined;
 let unsubscribeFromOtherP: (id: string) => void | undefined;
 
 const createPlaylist = async (owner: string, ownerName: string, playlistName: string) => {
-    console.log("in api")
     const response = await database.collection('playlists').add({ owner, ownerName, playlistName })
-    console.log(response)
     const playlistId = response.id
     await database
     .collection('users')
