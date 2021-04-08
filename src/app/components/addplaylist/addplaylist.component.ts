@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { FirestoreService } from '../../services/firestore/firestore.service';
-import { Observable } from 'rxjs';
-import * as playlistsSlice from '../../store/slices/playlists/slice';
-// import { playlistsActions } from '../../store/slices/playlists/slice';
-// import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
-import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { Router } from '@angular/router';
+import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
+import { NgRedux } from '@angular-redux/store';
 import RootState from '../../store/RootState'
 
 
@@ -19,8 +15,8 @@ export class AddPlaylistComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _firestoreService: FirestoreService,
-    private ngRedux: NgRedux<RootState>) { }
+    private ngRedux: NgRedux<RootState>,
+    public router: Router) { }
 
   ngOnInit(): void {
 
@@ -31,12 +27,12 @@ export class AddPlaylistComponent implements OnInit {
   })
 
   onSubmit() {
-
-    // this._firestoreService.createPlaylist(this.playlistForm.value)
-
-    this.ngRedux.dispatch<any>(playlistsSlice.playlistsAsyncActions.createPlaylist("ebcberce"))
-
-
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.createPlaylist(this.playlistForm.value.name))
+      .then(promise => {
+       if (promise.payload !== 'database_error') {
+         this.router.navigate([`/playlist/${promise.payload}`]);
+       }
+    })
   }
 
 }

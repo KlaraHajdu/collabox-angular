@@ -12,6 +12,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       {path:'addplaylist',
+      component: AddPlaylistComponent},
+      {path:'playlist/:id',
       component: AddPlaylistComponent}
     ]},
   { path: 'login', component: LoginComponent },
