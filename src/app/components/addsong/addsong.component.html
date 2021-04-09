@@ -1,0 +1,10 @@
+<div class="add-container">
+  <div class="add-wrapper">
+    <p class="title">Add a new song</p>
+    <form class="form-wrapper" [formGroup]="addsongForm" (ngSubmit)="onSubmit()">
+      <input class="add-input" formControlName="name" placeholder="Enter the playlist name"/>
+      <p class="helper-text"></p>
+      <button type="submit" class="submit-button">Add</button>
+    </form>
+  </div>
+</div>

@@ -19,6 +19,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import RootState from './store/RootState';
 import { PlaylistPageComponent } from './components/playlistpage/playlistpage.component';
+import { AddsongComponent } from './components/addsong/addsong.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PlaylistPageComponent } from './components/playlistpage/playlistpage.co
     LoginComponent,
     SidebarComponent,
     AddPlaylistComponent,
-    PlaylistPageComponent
+    PlaylistPageComponent,
+    AddsongComponent
   ],
   imports: [
     BrowserModule,

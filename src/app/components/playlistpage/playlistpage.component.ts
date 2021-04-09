@@ -16,6 +16,7 @@ export class PlaylistPageComponent implements OnInit {
   @select((state:RootState) => state.playlists.currentPlaylist?.playlistName) title$: Observable<string>;
   playlistId: string;
   toggleInvite: boolean;
+  addSongActive: boolean;
 
   constructor(
     private ngRedux: NgRedux<RootState>,
@@ -25,13 +26,16 @@ export class PlaylistPageComponent implements OnInit {
     this.playlistId = this.route.snapshot.paramMap.get("id")
     this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
     this.toggleInvite = false;
+    this.addSongActive = false;
   }
 
   ngOnDestroy(): void {
     this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromPlaylist(this.playlistId))
   }
 
-  addSong(){}
+  addSong(){
+    this.addSongActive = !this.addSongActive
+  }
 
   startPlayback() {}
 

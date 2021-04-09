@@ -9,12 +9,6 @@ $theme-color-light-turquoise: #96EDE8
 $theme-color-purple: #6C2E6D
 $theme-color-dark-green: #056066
 
-@mixin collabox-title
-  color: $theme-color-turquoise
-  font-size: 5rem
-  font-family: Megrim, Arial, Helvetica, sans-serif
-
-
 body
   background-image: url('./assets/background.jpg')
   background-position: center
@@ -22,6 +16,10 @@ body
   background-size: cover
   font-family: Montserrat, Arial, Helvetica, sans-serif
 
+@mixin collabox-title
+  color: $theme-color-turquoise
+  font-size: 5rem
+  font-family: Megrim, Arial, Helvetica, sans-serif
 
 @mixin add-container
   display: flex
@@ -58,19 +56,18 @@ body
   outline: none
   line-height: 25px
 
-
 @mixin submit-button
-    border-radius: 10px
-    border-width: 0px
-    color: $theme-color-turquoise
-    background-color:  $theme-color-purple
-    font-family: Montserrat, Arial, Helvetica, sans-serif
-    font-size: 1rem
-    font-weight: 600
-    min-height: 20px
-    outline: none
-    padding: 0.5rem 0.8rem
-    cursor: pointer
+  border-radius: 10px
+  border-width: 0px
+  color: $theme-color-turquoise
+  background-color:  $theme-color-purple
+  font-family: Montserrat, Arial, Helvetica, sans-serif
+  font-size: 1rem
+  font-weight: 600
+  min-height: 20px
+  outline: none
+  padding: 0.5rem 0.8rem
+  cursor: pointer
 
 @mixin material-icons-round
   color: $theme-color-turquoise
