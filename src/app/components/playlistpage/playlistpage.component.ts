@@ -23,10 +23,12 @@ export class PlaylistPageComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.playlistId = this.route.snapshot.paramMap.get("id")
-    this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
-    this.toggleInvite = false;
-    this.addSongActive = false;
+    this.route.params.subscribe(
+      params => {
+        this.playlistId = params.id
+        this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
+        this.toggleInvite = false;
+      });
   }
 
   ngOnDestroy(): void {
