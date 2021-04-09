@@ -3,14 +3,33 @@
   <div class="wrapper">
     <div class="subtitle-wrapper">
       <span class="subtitle">Own playlists</span>
-      <mat-icon class="material-icons-round" class="icon" (click)="createPlaylist()">
-        add
-      </mat-icon>
+      <div class="tooltip-wrapper">
+        <mat-icon
+          class="material-icons-round"
+          class="icon"
+          (click)="createPlaylist()"
+        >
+          add
+        </mat-icon>
+        <div class="tooltip add-playlist">Add new playlist</div>
+      </div>
+    </div>
+    <div class="playlist-wrapper">
+      <div *ngFor="let playlist of ownPlaylists$ | async" class="playlist" (click)="clickOnPlaylist(playlist.id)">
+        {{ playlist.playlistName }}
+      </div>
     </div>
     <div class="subtitle-wrapper">
       <span class="subtitle">Others' playlists</span>
-      <mat-icon class="material-icons-round" class="icon">
-        add</mat-icon>
+      <div class="tooltip-wrapper">
+        <mat-icon class="material-icons-round" class="icon"> add</mat-icon>
+        <div class="tooltip add-playlist">Follow a playlist</div>
+      </div>
+    </div>
+    <div class="playlist-wrapper">
+      <div *ngFor="let playlist of otherPlaylists$ | async" class="playlist" (click)="clickOnPlaylist(playlist.id)">
+        {{ playlist.playlistName }}
+      </div>
     </div>
   </div>
 </div>

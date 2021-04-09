@@ -1,5 +1,16 @@
 @use "../../../styles" as s
 
+::-webkit-scrollbar
+  width: 1em
+
+::-webkit-scrollbar-track
+  box-shadow: inset 0 0 6px s.$theme-color-light-turquoise
+  border-radius: 5px
+
+::-webkit-scrollbar-thumb
+  background-color: rgb(s.$theme-color-light-turquoise, 0.6)
+  border-radius: 5px
+
 .sidebar-container
   display: flex
   flex-direction: column
@@ -16,19 +27,20 @@
   display: flex
   flex-direction: column
   justify-content: space-between
-  padding: 1rem
+  padding: 0 1rem 0 1rem
   border-radius: 10px
   background-color: rgba(s.$theme-color-yellow, 0.65)
 
 .subtitle-wrapper
   display: flex
   justify-content: space-between
+  margin-top: 0.75rem
+  margin-bottom: 0.75rem
 
 .subtitle
   font-size: 1.2rem
   font-weight: 600
   color: s.$theme-color-light-turquoise
-    margin-bottom: 1rem
 
 .icon
   color: s.$theme-color-light-turquoise
@@ -37,4 +49,27 @@
 .icon:hover
   cursor: pointer
   transition: 0.25s ease-in-out
-  transform: scale(1.3)
+  color: s.$theme-color-dark-green
+
+.playlist-wrapper
+  max-height: 10rem
+  overflow: auto
+  margin-right:3px
+  margin-bottom: 5px
+
+.playlist
+  color: s.$theme-color-light-turquoise
+  margin-left: 1rem
+  margin-top: 0.5rem
+
+.playlist:hover
+  cursor: pointer
+
+.add-playlist
+  background-color: rgb(s.$theme-color-purple, 0.9)
+  min-width: 8.75rem
+  left: -260%
+  top: -140%
+
+.tooltip:after
+  border-color: rgb(s.$theme-color-purple, 0.9) transparent transparent transparent
