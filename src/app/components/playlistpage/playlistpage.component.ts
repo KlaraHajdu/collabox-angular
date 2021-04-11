@@ -27,7 +27,7 @@ export class PlaylistPageComponent implements OnInit {
       params => {
         this.playlistId = params.id
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
-        this.toggleInvite = false;
+        this.addSongActive = true;
       });
   }
 

@@ -20,9 +20,11 @@ export class AddsongComponent implements OnInit {
   }
 
   addsongForm = this.fb.group({
-    name: ['', [Validators.required, Validators.maxLength(140)]],
+    url: ['', [Validators.required, Validators.maxLength(140)]],
   })
 
-  onSubmit() {}
+  onSubmit() {
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.verifyUrl(this.addsongForm.value.url))
+  }
 
 }

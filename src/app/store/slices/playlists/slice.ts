@@ -3,7 +3,7 @@ import getYoutubeId from 'get-youtube-id'
 import PlaylistsState from './types/PlaylistsState'
 import { firestoreApi } from '../../../services/firestore/firestoreApi'
 import checkIfVideoDurationIsOk  from '../../../utils/checkIfVideoDurationIsOk'
-// import getVideoDetails from '../../../utils/youtubeApi'
+import getVideoDetails from '../../../utils/youtubeApi'
 import RootState from '../../RootState'
 import Playlist from '../../../types/Playlist'
 import PlaylistData from '../../../types/PlaylistData'
@@ -67,93 +67,94 @@ string,
 //         }
 //     })
 
-// const verifyUrl = createAsyncThunk<
-//     string,
-//     string,
-//     { state: RootState }
-//     >
-//     ('playlists/verifyUrl',
-//     async (payload: string, thunkApi) => {
-//             const url = payload
-//             const youtubeId = getYoutubeId(url)
-//             if (!youtubeId) {
-//                 return thunkApi.rejectWithValue("no_youtube_url")
-//             }
-//             // const videoDetails = await getVideoDetails(youtubeId)
-//             const videoDetails = { title: "Title", duration: "PT15M", youtubeId: "fake_youtubeId" }
-//             const videoDurationIsOk = checkIfVideoDurationIsOk(videoDetails.duration)
-//             if (!videoDurationIsOk) {
-//                 return thunkApi.rejectWithValue("video_too_long")
-//             }
-//             thunkApi.dispatch(checkIfSongExists({youtubeId, title: videoDetails.title}))
-//             return "url_verified"
-//     })
+const verifyUrl = createAsyncThunk<
+    string,
+    string,
+    { state: RootState }
+    >
+    ('playlists/verifyUrl',
+    async (payload: string, thunkApi) => {
+            const url = payload
+            const youtubeId = getYoutubeId(url)
+            if (!youtubeId) {
+                return thunkApi.rejectWithValue("no_youtube_url")
+            }
+            const videoDetails = await getVideoDetails(youtubeId)
+            // const videoDetails = { title: "Title", duration: "PT9M", youtubeId: "fake_youtubeId" }
+            const videoDurationIsOk = checkIfVideoDurationIsOk(videoDetails.duration)
+            if (!videoDurationIsOk) {
+                return thunkApi.rejectWithValue("video_too_long")
+            }
+            thunkApi.dispatch(checkIfSongExists({youtubeId, title: videoDetails.title}))
+            return "url_verified"
+    })
 
-// const addSong = createAsyncThunk<
-//     string,
-//     {youtubeId: string, title: string},
-//     { state: RootState }
-//     >
-//     ('playlists/addSong',
-//         async (payload, thunkApi) => {
-//             const state = thunkApi.getState()
-//             const { authentication } = state
-//             const { currentUser } = authentication
-//             if (!currentUser) {
-//                 return thunkApi.rejectWithValue("no_currentUser")
-//             }
-//             const userId = currentUser?.id
-//             const userName = currentUser.name
+const addSong = createAsyncThunk<
+    string,
+    {youtubeId: string, title: string},
+    { state: RootState }
+    >
+    ('playlists/addSong',
+        async (payload, thunkApi) => {
+            const state = thunkApi.getState()
+            const { authentication } = state
+            const { currentUser } = authentication
+            if (!currentUser) {
+                return thunkApi.rejectWithValue("no_currentUser")
+            }
+            const userId = currentUser?.id
+            const userName = currentUser.name
 
-//             const { playlists } = state
-//             const { currentPlaylist } = playlists
-//             if (!currentPlaylist) {
-//                 return thunkApi.rejectWithValue("no_currentPlaylist")
-//             }
-//             const playlistId = currentPlaylist?.id
-//             const { youtubeId, title } = payload
-//             const song: Omit<Song, 'id' | 'downVoted' | 'upVoted'> = {
-//                 youtubeId,
-//                 title,
-//                 votes: 0,
-//                 userId,
-//                 userName,
-//             }
-//             try {
-//                 await firestoreApi.addSong(playlistId, song)
-//                 return 'song_added'
-//             } catch (error) {
-//                 return thunkApi.rejectWithValue('database_error')
-//             }
-//     })
+            const { playlists } = state
+            const { currentPlaylist } = playlists
+            if (!currentPlaylist) {
+                return thunkApi.rejectWithValue("no_currentPlaylist")
+            }
+            const playlistId = currentPlaylist?.id
+            const { youtubeId, title } = payload
+            const song: Omit<Song, 'id' | 'downVoted' | 'upVoted'> = {
+                youtubeId,
+                title,
+                votes: 0,
+                userId,
+                userName,
+            }
+            try {
+                console.log(song)
+                await firestoreApi.addSong(playlistId, song)
+                return 'song_added'
+            } catch (error) {
+                return thunkApi.rejectWithValue('database_error')
+            }
+    })
 
-// const checkIfSongExists  = createAsyncThunk<
-// string,
-// {youtubeId: string, title: string},
-// { state: RootState }
-// >
-// ('playlists/checkIfSongExists',
-//     async (payload, thunkApi) => {
-//         const state = thunkApi.getState()
-//         const { playlists } = state
-//         const { currentPlaylist } = playlists
-//         if (!currentPlaylist) {
-//             return thunkApi.rejectWithValue("no_currentPlaylist")
-//         }
-//         const playlistId = currentPlaylist.id
-//         const { youtubeId, title } = payload
-//         try{
-//             const songExists = await firestoreApi.checkIfSongExists(playlistId, youtubeId)
-//             if (songExists) {
-//                 return 'duplicate_song'
-//             }
-//             thunkApi.dispatch(addSong({youtubeId, title}))
-//             return 'not_duplicate_song'
+const checkIfSongExists  = createAsyncThunk<
+string,
+{youtubeId: string, title: string},
+{ state: RootState }
+>
+('playlists/checkIfSongExists',
+    async (payload, thunkApi) => {
+        const state = thunkApi.getState()
+        const { playlists } = state
+        const { currentPlaylist } = playlists
+        if (!currentPlaylist) {
+            return thunkApi.rejectWithValue("no_currentPlaylist")
+        }
+        const playlistId = currentPlaylist.id
+        const { youtubeId, title } = payload
+        try{
+            const songExists = await firestoreApi.checkIfSongExists(playlistId, youtubeId)
+            if (songExists) {
+                return 'duplicate_song'
+            }
+            thunkApi.dispatch(addSong({youtubeId, title}))
+            return 'not_duplicate_song'
 
-//         } catch (error) {
-//             return thunkApi.rejectWithValue('database_error')
-//         }
-// })
+        } catch (error) {
+            return thunkApi.rejectWithValue('database_error')
+        }
+})
 
 // const deleteSong = createAsyncThunk<
 //     string,
@@ -347,15 +348,15 @@ const slice = createSlice({
         // [followPlaylist.rejected.type]: (state) => {
         //     state.loading.followPlaylistLoading = false
         // },
-        // [addSong.pending.type]: (state) => {
-        //     state.loading.addSongLoading = true
-        // },
-        // [addSong.fulfilled.type]: (state) => {
-        //     state.loading.addSongLoading = false
-        // },
-        // [addSong.rejected.type]: (state) => {
-        //     state.loading.addSongLoading = false
-        // }
+        [addSong.pending.type]: (state) => {
+            state.loading.addSongLoading = true
+        },
+        [addSong.fulfilled.type]: (state) => {
+            state.loading.addSongLoading = false
+        },
+        [addSong.rejected.type]: (state) => {
+            state.loading.addSongLoading = false
+        }
     }
 })
 
@@ -524,9 +525,9 @@ export const playlistsAsyncActions = {
     unsubscribeFromOwnPlaylists,
     subscribeToOtherPlaylists,
     unsubscribeFromOtherPlaylists,
-    // verifyUrl,
-    // addSong,
-    // checkIfSongExists,
+    verifyUrl,
+    addSong,
+    checkIfSongExists,
     // deleteSong,
     // vote,
     // followPlaylist,

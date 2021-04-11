@@ -2,16 +2,34 @@
 
 .add-container
   @include styles.add-container
+  margin-top: 0rem
 
 .add-wrapper
   @include styles.add-wrapper
-
-.title
-  @include styles.title
+  margin-top: 0
+  width: 100%
+  background-color: rgb(styles.$theme-color-green, 0.75)
+  padding-top: 1.4rem
+  box-shadow: -1px 6px 10px -4px styles.$theme-color-dark-green
 
 .form-wrapper
   @include styles.form-wrapper
 
 .add-input
   @include styles.add-input
+
+.submit-button
+  @include styles.submit-button
+  margin-top: 1rem
+  background-color: rgb(styles.$theme-color-turquoise, 0.7)
+  color: styles.$theme-color-purple
+
+.submit-button:hover
+  @include styles.submit-button
+  margin-top: 1rem
+  background-color: rgb(styles.$theme-color-turquoise, 0.7)
+  color: styles.$theme-color-purple
+  transition: 0.25s ease-in-out
+  transform: scale(1.1)
+
 
