@@ -4,6 +4,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import RootState from '../../store/RootState';
 import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
 import { Observable } from 'rxjs';
+import Song from 'src/app/types/Song';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs';
 export class PlaylistPageComponent implements OnInit {
 
   @select((state:RootState) => state.playlists.currentPlaylist?.playlistName) title$: Observable<string>;
+  @select((state:RootState) => state.playlists.currentPlaylist?.songs) songs$: Observable<any[]>;
   playlistId: string;
   toggleInvite: boolean;
   addSongActive: boolean;
@@ -27,12 +29,13 @@ export class PlaylistPageComponent implements OnInit {
       params => {
         this.playlistId = params.id
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
-        this.addSongActive = true;
+        this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToSongsCollection(this.playlistId))
       });
   }
 
   ngOnDestroy(): void {
     this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromPlaylist(this.playlistId))
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromSongsCollection(this.playlistId))
   }
 
   addSong(){

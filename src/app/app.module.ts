@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import RootState from './store/RootState';
 import { PlaylistPageComponent } from './components/playlistpage/playlistpage.component';
 import { AddsongComponent } from './components/addsong/addsong.component';
+import { SonglistComponent } from './components/songlist/songlist.component';
+import { SonglistItemComponent } from './components/songlist-item/songlist-item.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { AddsongComponent } from './components/addsong/addsong.component';
     SidebarComponent,
     AddPlaylistComponent,
     PlaylistPageComponent,
-    AddsongComponent
+    AddsongComponent,
+    SonglistComponent,
+    SonglistItemComponent
   ],
   imports: [
     BrowserModule,

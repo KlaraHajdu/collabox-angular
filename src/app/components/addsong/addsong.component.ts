@@ -25,6 +25,7 @@ export class AddsongComponent implements OnInit {
 
   onSubmit() {
     this.ngRedux.dispatch<any>(playlistsAsyncActions.verifyUrl(this.addsongForm.value.url))
+    this.addsongForm.reset();
   }
 
 }
