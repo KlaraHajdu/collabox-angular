@@ -12,7 +12,8 @@ import RootState from '../../store/RootState'
 })
 export class AddsongComponent implements OnInit {
 
-  constructor(    private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private ngRedux: NgRedux<RootState>,
     public router: Router) { }
 

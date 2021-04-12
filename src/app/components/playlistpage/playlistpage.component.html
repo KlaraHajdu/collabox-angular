@@ -37,6 +37,7 @@
       </div>
       <span *ngIf="toggleInvite" class="invite-text">Invite with this id: {{ playlistId }}</span>
     </div>
+    <playsong *ngIf="playSongActive" class="playSong"></playsong>
     <addsong *ngIf="addSongActive" class="addsong"></addsong>
     <songlist *ngIf="(songs$ | async)?.length > 0" class="songlist"></songlist>
   </div>

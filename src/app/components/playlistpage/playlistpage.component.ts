@@ -19,6 +19,7 @@ export class PlaylistPageComponent implements OnInit {
   playlistId: string;
   toggleInvite: boolean;
   addSongActive: boolean;
+  playSongActive: boolean;
 
   constructor(
     private ngRedux: NgRedux<RootState>,
@@ -42,7 +43,9 @@ export class PlaylistPageComponent implements OnInit {
     this.addSongActive = !this.addSongActive
   }
 
-  startPlayback() {}
+  startPlayback() {
+    this.playSongActive = !this.playSongActive
+  }
 
   startParty() {}
 

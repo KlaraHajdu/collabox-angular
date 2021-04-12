@@ -5,6 +5,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import {YouTubePlayerModule} from '@angular/youtube-player';
 
 import store from './store/index';
 import { AngularMaterialModule } from './angular-material.module';
@@ -22,6 +23,7 @@ import { PlaylistPageComponent } from './components/playlistpage/playlistpage.co
 import { AddsongComponent } from './components/addsong/addsong.component';
 import { SonglistComponent } from './components/songlist/songlist.component';
 import { SonglistItemComponent } from './components/songlist-item/songlist-item.component';
+import { PlaysongComponent } from './components/playsong/playsong.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { SonglistItemComponent } from './components/songlist-item/songlist-item.
     PlaylistPageComponent,
     AddsongComponent,
     SonglistComponent,
-    SonglistItemComponent
+    SonglistItemComponent,
+    PlaysongComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { SonglistItemComponent } from './components/songlist-item/songlist-item.
     AngularMaterialModule,
     ReactiveFormsModule,
     NgReduxModule,
+    YouTubePlayerModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
