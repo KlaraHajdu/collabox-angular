@@ -1,3 +1,46 @@
-<div></div>
-<youtube-player #player [videoId]="currentSong.youtubeId" (ready)="onReady($event)"></youtube-player>
-
+<div class="container">
+  <div class="title">{{ currentSong.title }}</div>
+  <youtube-player
+    #player
+    class="youtube"
+    [videoId]="currentSong.youtubeId"
+    (ready)="onReady($event)"
+    (end)="onEnd()"
+  ></youtube-player>
+  <div class="control-wrapper">
+    <button>
+      <span class="material-icons-round" (click)="startPlay()"
+        >play_arrow</span>
+    </button>
+    <button>
+      <span class="material-icons-round" (click)="pausePlay()"
+        >pause</span>
+    </button>
+    <button>
+      <span class="material-icons-round" (click)="stopPlay()"
+        >stop</span>
+    </button>
+    <button [disabled]="!canSkipBackward">
+      <span class="material-icons-round" (click)="skipToPrevious()"
+        >skip_previous</span>
+    </button>
+    <button [disabled]="!canSkipForward">
+      <span class="material-icons-round" (click)="skipToNext()"
+        >skip_next</span>
+    </button>
+    <button>
+      <span
+        *ngIf="!isMuted"
+        class="material-icons-round"
+        (click)="toggleMute()"
+        >volume_off</span>
+    </button>
+    <button>
+      <span
+        *ngIf="isMuted"
+        class="material-icons-round unmute-icon"
+        (click)="toggleMute()"
+        >volume_up</span>
+    </button>
+  </div>
+</div>
