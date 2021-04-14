@@ -17,11 +17,13 @@ export class PlaysongComponent implements OnInit {
   songsLength: number;
   currentSong: Pick<Song, 'youtubeId' | 'title'> | undefined;
   playedSongs: Pick<Song, 'youtubeId' | 'title'>[];
-  playStopped: boolean;
   currentSongForwardIndex: number;
   currentSongBackwardIndex: number;
   canSkipForward: boolean;
   canSkipBackward: boolean;
+  isPlaying: boolean;
+  isStopped: boolean;
+  isPaused: boolean;
   isMuted: boolean;
 
   constructor() {}
@@ -52,7 +54,9 @@ export class PlaysongComponent implements OnInit {
   }
 
   startPlay() {
-    this.playStopped = false;
+    this.isPlaying = true;
+    this.isStopped = false;
+    this.isPaused = false;
     this.player.playVideo();
   }
 
@@ -62,7 +66,7 @@ export class PlaysongComponent implements OnInit {
         this.skipToNext();
         break;
       case window['YT'].PlayerState.CUED:
-        if (!this.playStopped) {
+        if (!this.isStopped) {
           this.player.playVideo();
         }
         break;
@@ -70,11 +74,16 @@ export class PlaysongComponent implements OnInit {
   }
 
   stopPlay() {
-    this.playStopped = true;
+    this.isStopped = true;
+    this.isPlaying = false;
+    this.isPaused = false;
     this.player.stopVideo();
   }
 
   pausePlay() {
+    this.isPaused = true;
+    this.isPlaying = false;
+    this.isStopped = false;
     this.player.pauseVideo();
   }
 

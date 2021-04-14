@@ -8,15 +8,15 @@
     (stateChange)="onStateChange($event)"
   ></youtube-player>
   <div class="control-wrapper">
-    <button>
+    <button [disabled]="isPlaying">
       <span class="material-icons-round" (click)="startPlay()"
         >play_arrow</span>
     </button>
-    <button>
+    <button [disabled]="isPaused">
       <span class="material-icons-round" (click)="pausePlay()"
         >pause</span>
     </button>
-    <button>
+    <button [disabled]="isStopped">
       <span class="material-icons-round" (click)="stopPlay()"
         >stop</span>
     </button>
