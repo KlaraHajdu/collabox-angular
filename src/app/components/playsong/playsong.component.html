@@ -5,7 +5,7 @@
     class="youtube"
     [videoId]="currentSong.youtubeId"
     (ready)="onReady($event)"
-    (end)="onEnd()"
+    (stateChange)="onStateChange($event)"
   ></youtube-player>
   <div class="control-wrapper">
     <button>

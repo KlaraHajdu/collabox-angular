@@ -17,8 +17,6 @@ export class PlaysongComponent implements OnInit {
   notPlayed: any[];
   songsLength: number;
   currentSong: Pick<Song, 'youtubeId' | 'title'> | undefined;
-  canChangeSongs: boolean;
-  isPlaying: boolean;
   playedSongs: Pick<Song, 'youtubeId' | 'title'>[];
   currentSongForwardIndex: number;
   currentSongBackwardIndex: number;
@@ -30,14 +28,12 @@ export class PlaysongComponent implements OnInit {
 
   ngOnInit(): void {
     const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
+    tag.src = 'https://www.youtube.com/iframe_api?autoplay=1';
     document.body.appendChild(tag);
 
     this.playedSongs = [];
     this.currentSongForwardIndex = 0;
     this.currentSongBackwardIndex = 0;
-    this.canChangeSongs = true;
-    this.isPlaying = false;
     this.canSkipForward = true;
     this.canSkipBackward = false;
     this.isMuted = false;
@@ -53,42 +49,30 @@ export class PlaysongComponent implements OnInit {
   }
 
   onReady(event: any) {
-    this.canChangeSongs = true;
     this.player.playVideo();
-    this.player.mute();
+    this.player.unMute();
   }
 
   startPlay() {
     this.player.playVideo();
-    this.isPlaying = true;
   }
 
-  onEnd() {
-    if (this.currentSong) {
-      this.playedSongs = [
-        ...this.playedSongs,
-        {
-          youtubeId: this.currentSong.youtubeId,
-          title: this.currentSong.title,
-        },
-      ];
+  onStateChange(event: any) {
+    if (event.data === window['YT'].PlayerState.ENDED) {
+      this.skipToNext()
     }
-    this.currentSongForwardIndex += 1;
-    this.canChangeSongs = true;
   }
 
   stopPlay() {
     this.player.stopVideo();
-    this.isPlaying = false;
   }
 
   pausePlay() {
     this.player.pauseVideo();
-    this.isPlaying = false;
   }
 
   changeCurrentSong() {
-    if (this.songs$ && this.canChangeSongs) {
+    if (this.songs$ ) {
       if (this.currentSongBackwardIndex > 0) {
         this.currentSong = this.playedSongs[this.playedSongs.length - this.currentSongBackwardIndex];
     } else {
@@ -105,9 +89,8 @@ export class PlaysongComponent implements OnInit {
             console.log(res)
             this.currentSong = res[0]
             })
-
-      this.canChangeSongs = false;
     }
+    setTimeout(() => this.startPlay(), 500)
   }
   }
 
@@ -116,20 +99,14 @@ export class PlaysongComponent implements OnInit {
     if (this.currentSongBackwardIndex === 0 && this.currentSongForwardIndex < this.songsLength - 1) {
       this.playedSongs = [...this.playedSongs, this.currentSong];
       this.currentSongForwardIndex += 1;
-
     } else if (this.currentSongBackwardIndex > 0) {
       this.currentSongBackwardIndex -= 1;
     }
 
-    if (this.currentSongBackwardIndex === 0 && this.currentSongForwardIndex === this.songsLength - 2) {
+    if (this.currentSongBackwardIndex === 0 && this.currentSongForwardIndex === this.songsLength - 1) {
         this.canSkipForward = false;
       }
 
-      //
-    if (this.currentSongBackwardIndex === 1 && this.currentSongForwardIndex === this.songsLength - 1) {
-      this.canSkipForward = false;
-    }
-      this.canChangeSongs = true;
       this.canSkipBackward = true;
       this.changeCurrentSong();
 };
@@ -138,11 +115,10 @@ export class PlaysongComponent implements OnInit {
     if (this.currentSongBackwardIndex < this.playedSongs.length) {
       this.currentSongBackwardIndex += 1 ;
     }
-    if (this.currentSongBackwardIndex === this.playedSongs.length - 1) {
+    if (this.currentSongBackwardIndex === this.playedSongs.length) {
       this.canSkipBackward = false;
     }
     this.canSkipForward = true;
-    this.canChangeSongs = true;
     this.changeCurrentSong();
   };
 
