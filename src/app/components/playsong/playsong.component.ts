@@ -21,10 +21,12 @@ export class PlaysongComponent implements OnInit {
   currentSongBackwardIndex: number;
   canSkipForward: boolean;
   canSkipBackward: boolean;
+  canChangeSong: boolean;
   isPlaying: boolean;
   isStopped: boolean;
   isPaused: boolean;
   isMuted: boolean;
+  hasStarted: boolean;
 
   constructor() {}
 
@@ -39,18 +41,22 @@ export class PlaysongComponent implements OnInit {
     this.canSkipForward = true;
     this.canSkipBackward = false;
     this.isMuted = false;
+    this.canChangeSong = false;
+    this.hasStarted = false;
 
     this.songs$.subscribe((songs) => {
       this.songsLength = songs.length;
-      if (this.playedSongs.length === 0) {
+      if (!this.hasStarted) {
         this.currentSong = songs[0];
       }
     });
+    this.hasStarted = true;
   }
 
   onReady(event: any) {
     this.player.playVideo();
     this.player.unMute();
+    this.canChangeSong = false;
   }
 
   startPlay() {
@@ -88,30 +94,35 @@ export class PlaysongComponent implements OnInit {
   }
 
   changeCurrentSong() {
-    if (this.songs$) {
-      if (this.currentSongBackwardIndex > 0) {
-        this.currentSong = this.playedSongs[
-          this.playedSongs.length - this.currentSongBackwardIndex
-        ];
-      } else {
-        const playedSongsYoutubeIds = this.playedSongs.map(
-          (playedSong: Pick<Song, 'youtubeId' | 'title'>) =>
-            playedSong.youtubeId
-        );
-
-        this.songs$
-          .pipe(
-            map((songs) =>
-              songs.filter((s) => {
-                return !playedSongsYoutubeIds.includes(s.youtubeId);
-              })
-            )
-          )
-          .subscribe((notPlayedSongs) => {
-            this.currentSong = notPlayedSongs[0];
-          });
-      }
+    if (!this.songs$ || !this.canChangeSong) {
+      return
     }
+
+    if (this.currentSongBackwardIndex > 0) {
+      this.currentSong = this.playedSongs[
+        this.playedSongs.length - this.currentSongBackwardIndex
+      ];
+    } else {
+      const playedSongsYoutubeIds = this.playedSongs.map(
+        (playedSong: Pick<Song, 'youtubeId' | 'title'>) =>
+          playedSong.youtubeId
+      );
+
+      this.songs$
+        .pipe(
+          map((songs) =>
+            songs.filter((s) => {
+              return !playedSongsYoutubeIds.includes(s.youtubeId);
+            })
+          )
+        )
+        .subscribe((notPlayedSongs) => {
+          if (this.canChangeSong) {
+            this.currentSong = notPlayedSongs[0];
+          }
+        });
+    }
+    this.canChangeSong = false;
   }
 
   skipToNext() {
@@ -133,6 +144,7 @@ export class PlaysongComponent implements OnInit {
     }
 
     this.canSkipBackward = true;
+    this.canChangeSong = true;
     this.changeCurrentSong();
   }
 
@@ -144,6 +156,7 @@ export class PlaysongComponent implements OnInit {
       this.canSkipBackward = false;
     }
     this.canSkipForward = true;
+    this.canChangeSong = true;
     this.changeCurrentSong();
   };
 

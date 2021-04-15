@@ -1,24 +1,43 @@
 @use "../../../styles"
 
 .container
-    display: flex
-    justify-content: space-between
-    align-items: center
-    border-radius: 10px
-    background: styles.$theme-color-green
-    color: styles.$theme-color-dark-green
-    padding: 1rem
-    margin-top: 0.5rem
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-radius: 10px
+  background: styles.$theme-color-green
+  color: styles.$theme-color-dark-green
+  padding: 1rem
+  margin-top: 0.5rem
 
 .title
-    font-size: 1rem
-    font-weight: 600
-    flex: 5
-    overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
-    margin-right: 4px
+  font-size: 1rem
+  font-weight: 600
+  flex: 5
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+  margin-right: 4px
 
 .addedBy
-    font-size: 0.8rem
-    flex: 1
+  padding: 0 0.5rem 0 0.5rem
+  font-size: 0.8rem
+  flex: 2
+
+.votes
+  padding: 0 0.5rem 0 0.5rem
+  font-size: 0.8rem
+  flex: 1
+
+button
+  background-color: transparent
+  outline: none
+  border: 0
+
+.material-icons-round
+  @include styles.material-icons-round
+  font-size: 1.3rem !important
+  color: styles.$theme-color-dark-green
+
+.material-icons-round:hover
+  color: styles.$theme-color-purple

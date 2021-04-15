@@ -178,33 +178,33 @@ string,
 //             }
 //     })
 
-// const vote = createAsyncThunk<
-// string,
-// {songId: string, voteType: VoteType, playlistType: PlaylistType},
-// { state: RootState }
-// >
-// ('playlists/vote',
-//     async (payload, thunkApi) => {
-//         const state = thunkApi.getState()
-//         const {authentication} = state
-//         const { currentUser } = authentication
-//         const { playlists } = state
-//         const { currentPlaylist } = playlists
-//         const playlistId = currentPlaylist!.id
-//         const {songId, voteType, playlistType } = payload
+const vote = createAsyncThunk<
+string,
+{songId: string, voteType: VoteType, playlistType: PlaylistType},
+{ state: RootState }
+>
+('playlists/vote',
+    async (payload, thunkApi) => {
+        const state = thunkApi.getState()
+        const {authentication} = state
+        const { currentUser } = authentication
+        const { playlists } = state
+        const { currentPlaylist } = playlists
+        const playlistId = currentPlaylist!.id
+        const {songId, voteType, playlistType } = payload
 
-//         const voteStatus: number = await firestoreApi.checkVoteStatus(currentUser!.id, playlistId, songId, playlistType)
-//         if ( voteStatus === voteType ) {
-//             return thunkApi.rejectWithValue('already_voted')
-//         }
-//         try {
-//             const voteChange = voteType * (Math.abs(voteStatus) + Math.abs(voteType))
-//             await firestoreApi.vote(currentUser!.id, playlistId, songId, voteChange, voteType, playlistType)
-//             return 'voted_on_song'
-//         } catch (error) {
-//             return thunkApi.rejectWithValue('database_error')
-//         }
-// })
+        const voteStatus: number = await firestoreApi.checkVoteStatus(currentUser!.id, playlistId, songId, playlistType)
+        if ( voteStatus === voteType ) {
+            return thunkApi.rejectWithValue('already_voted')
+        }
+        try {
+            const voteChange = voteType * (Math.abs(voteStatus) + Math.abs(voteType))
+            await firestoreApi.vote(currentUser!.id, playlistId, songId, voteChange, voteType, playlistType)
+            return 'voted_on_song'
+        } catch (error) {
+            return thunkApi.rejectWithValue('database_error')
+        }
+})
 
 // const followPlaylist = createAsyncThunk<
 // string,
@@ -528,7 +528,7 @@ export const playlistsAsyncActions = {
     addSong,
     checkIfSongExists,
     // deleteSong,
-    // vote,
+    vote,
     // followPlaylist,
     // unfollowPlaylist,
     // updatePartySong,
