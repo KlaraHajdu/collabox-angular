@@ -4,7 +4,6 @@ import { NgRedux, select } from '@angular-redux/store';
 import RootState from '../../store/RootState';
 import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
 import { Observable } from 'rxjs';
-import Song from 'src/app/types/Song';
 
 
 @Component({
