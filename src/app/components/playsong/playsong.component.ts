@@ -56,6 +56,7 @@ export class PlaysongComponent implements OnInit {
   onReady(event: any) {
     this.player.playVideo();
     this.player.unMute();
+    this.isPlaying = true;
     this.canChangeSong = false;
   }
 
