@@ -24,6 +24,7 @@ import { AddsongComponent } from './components/addsong/addsong.component';
 import { SonglistComponent } from './components/songlist/songlist.component';
 import { SonglistItemComponent } from './components/songlist-item/songlist-item.component';
 import { PlaysongComponent } from './components/playsong/playsong.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PlaysongComponent } from './components/playsong/playsong.component';
     SonglistComponent,
     SonglistItemComponent,
     PlaysongComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

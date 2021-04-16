@@ -1,21 +1,26 @@
 <div class="container">
-  <div class="title"> {{song.title}}</div>
-  <div class="addedBy">
-    added by: {{song.userName}}
-  </div>
-  <div class="votes">
-    votes: {{song.votes}}
-  </div>
+  <div class="title">{{ song.title }}</div>
+  <div class="addedBy">added by: {{ song.userName }}</div>
+  <div class="votes">votes: {{ song.votes }}</div>
   <div class="votebuttons">
     <button>
       <span class="material-icons-round add-icon" (click)="upVote()">
-      thumb_up_alt
-    </span>
-  </button>
-  <button>
-    <span class="material-icons-round add-icon" (click)="downVote()">
-    thumb_down_alt
-  </span>
-</button>
+        thumb_up_alt
+      </span>
+    </button>
+    <button>
+      <span class="material-icons-round add-icon" (click)="downVote()">
+        thumb_down_alt
+      </span>
+    </button>
+    <button>
+      <span class="material-icons-round" (click)="deleteClick()"> delete </span>
+    </button>
   </div>
+  <confirmation
+    *ngIf="confirmationVisible"
+    [message]="message"
+    (deleteSong)="deleteSong()"
+    (close)="closeConfirmation()"
+  ></confirmation>
 </div>
