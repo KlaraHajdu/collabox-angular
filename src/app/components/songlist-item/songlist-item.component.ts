@@ -13,10 +13,14 @@ import PlaylistType from 'src/app/types/PlaylistType';
 })
 export class SonglistItemComponent implements OnInit {
   @Input() song: Song;
+  message: string;
+  confirmationVisible: boolean
 
   constructor(private ngRedux: NgRedux<RootState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.message = "Are you sure you want to delete this song?"
+  }
 
   upVote() {
     this.ngRedux.dispatch<any>(
@@ -36,5 +40,17 @@ export class SonglistItemComponent implements OnInit {
         playlistType: PlaylistType.ownPlaylist,
       })
     );
+  }
+
+  deleteSong() {
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.deleteSong(this.song.id));
+  }
+
+  deleteClick() {
+    this.confirmationVisible = true;
+  }
+
+  closeConfirmation() {
+    this.confirmationVisible = false;
   }
 }

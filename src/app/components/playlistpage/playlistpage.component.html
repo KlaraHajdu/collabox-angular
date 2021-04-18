@@ -3,42 +3,54 @@
     <div class="title">{{ title$ | async }}</div>
     <div class="icon-wrapper">
       <div class="tooltip-wrapper">
-        <span class="material-icons-round add-icon" (click)="addSong()">
-          playlist_add
-        </span>
-        <div class="tooltip add-song">Add a new song</div>
+        <button>
+          <span class="material-icons-round add-icon" (click)="addSong()">
+            playlist_add
+          </span>
+          <div class="tooltip add-song">Add a new song</div>
+        </button>
       </div>
       <div class="tooltip-wrapper">
         <span class="material-icons-round play-icon" (click)="startPlayback()">
           play_arrow
         </span>
-        <div class="tooltip start-playback">Start playback</div>
+        <div class="tooltip start-playback">
+          {{ playSongActive ? "Hide playback" : "Start playback" }}
+        </div>
       </div>
-      <div class="tooltip-wrapper">
+      <button class="tooltip-wrapper">
         <span class="material-icons-round" (click)="startParty()">
           music_note
         </span>
         <div class="tooltip start-party">Start a party</div>
-      </div>
-      <div class="tooltip-wrapper">
+      </button>
+      <button class="tooltip-wrapper">
         <span class="material-icons-round" id="person-add" (click)="invite()">
           person_add
         </span>
         <div class="tooltip invite">Invite others</div>
-      </div>
-      <div class="tooltip-wrapper">
+      </button>
+      <button class="tooltip-wrapper">
         <span
           class="material-icons-round delete-icon"
-          (click)="deletePlaylist()"
+          (click)="clickDelete()"
         >
           delete
         </span>
         <div class="tooltip delete">Delete playlist</div>
-      </div>
-      <span *ngIf="toggleInvite" class="invite-text">Invite with this id: {{ playlistId }}</span>
+      </button>
+      <span *ngIf="toggleInvite" class="invite-text"
+        >Invite with this id: {{ playlistId }}</span
+      >
     </div>
     <playsong *ngIf="playSongActive" class="playSong"></playsong>
-    <addsong *ngIf="addSongActive" class="addsong"></addsong>
-    <songlist *ngIf="(songs$ | async)?.length > 0" class="songlist"></songlist>
+    <addsong *ngIf="addSongActive" class="add-song-component"></addsong>
+    <songlist *ngIf="(songs$ | async)?.length > 0" class="song-list-component"></songlist>
   </div>
+  <confirmation
+    *ngIf="confirmationVisible"
+    [message]="message"
+    (delete)="deletePlaylist()"
+    (close)="closeConfirmation()"
+  ></confirmation>
 </div>

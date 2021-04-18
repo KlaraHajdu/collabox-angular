@@ -1,0 +1,42 @@
+@use "../../../styles"
+
+.container
+  display: flex
+  flex-direction: column
+  justify-content: center
+  position: absolute
+  left: calc(50% + -20rem)
+  top: 45%
+  z-index: 1
+  width: 40rem
+  border-radius: 10px
+  margin-bottom: 0.6rem
+  box-shadow: -1px 6px 25px -4px #000000
+  padding: 0.5rem
+  text-align: center
+  font-size: 1.3rem
+  font-weight: 600
+  color: rgb(white, 0.5)
+  background-color: rgb(styles.$theme-color-dark-blue, 0.95)
+
+.message-wrapper
+  align-self: center
+  margin: 0.5rem
+
+.button-wrapper
+  display: flex
+  flex-direction: row
+  justify-content: center
+
+button
+  @include styles.submit-button
+  margin: 0.5rem 1rem 0 1rem
+  color: rgb(white, 0.5)
+  background-color: rgb(styles.$theme-color-turquoise, 0.3)
+  transition: 0.3s ease-in-out
+
+.cancel-button
+  background-color: rgb(styles.$theme-color-turquoise, 0.6)
+
+button:hover
+  background-color: styles.$theme-color-dark-green

@@ -42,30 +42,30 @@ string,
         }
     })
 
-// const deletePlaylist = createAsyncThunk<
-// string,
-// string,
-// { state: RootState }
-// >
-// ('playlists/deletePlaylist',
-//     async (payload: string, thunkApi) => {
-//         const state = thunkApi.getState()
-//         const {authentication} = state
-//         const {currentUser} = authentication
-//         const {playlists} = state
-//         if(!playlists.currentPlaylist) {
-//             return thunkApi.rejectWithValue('no_current_playlist')
-//         }
-//         const { currentPlaylist } = playlists
-//         const {followers} = currentPlaylist
-//         const playlistId = payload
-//         try {
-//             await firestoreApi.deletePlaylist(currentUser!.id, playlistId, followers)
-//             return 'playlist_deleted'
-//         } catch (error) {
-//             return thunkApi.rejectWithValue('database_error')
-//         }
-//     })
+const deletePlaylist = createAsyncThunk<
+string,
+string,
+{ state: RootState }
+>
+('playlists/deletePlaylist',
+    async (payload: string, thunkApi) => {
+        const state = thunkApi.getState()
+        const {authentication} = state
+        const {currentUser} = authentication
+        const {playlists} = state
+        if(!playlists.currentPlaylist) {
+            return thunkApi.rejectWithValue('no_current_playlist')
+        }
+        const { currentPlaylist } = playlists
+        const {followers} = currentPlaylist
+        const playlistId = payload
+        try {
+            await firestoreApi.deletePlaylist(currentUser!.id, playlistId, followers)
+            return 'playlist_deleted'
+        } catch (error) {
+            return thunkApi.rejectWithValue('database_error')
+        }
+    })
 
 const verifyUrl = createAsyncThunk<
     string,
@@ -155,28 +155,28 @@ string,
         }
 })
 
-// const deleteSong = createAsyncThunk<
-//     string,
-//     string,
-//     { state: RootState }
-//     >
-//     ('playlists/deleteSong',
-//         async (payload, thunkApi) => {
-//             const state = thunkApi.getState()
-//             const { playlists } = state
-//             const { currentPlaylist } = playlists
-//             if (!currentPlaylist) {
-//                 return thunkApi.rejectWithValue("no_currentPlaylist")
-//             }
-//             const playlistId = currentPlaylist.id
-//             const songId = payload
-//             try {
-//                 await firestoreApi.deleteSong(playlistId, songId)
-//                 return 'song_deleted'
-//             } catch (error) {
-//                 return thunkApi.rejectWithValue('database_error')
-//             }
-//     })
+const deleteSong = createAsyncThunk<
+    string,
+    string,
+    { state: RootState }
+    >
+    ('playlists/deleteSong',
+        async (payload, thunkApi) => {
+            const state = thunkApi.getState()
+            const { playlists } = state
+            const { currentPlaylist } = playlists
+            if (!currentPlaylist) {
+                return thunkApi.rejectWithValue("no_currentPlaylist")
+            }
+            const playlistId = currentPlaylist.id
+            const songId = payload
+            try {
+                await firestoreApi.deleteSong(playlistId, songId)
+                return 'song_deleted'
+            } catch (error) {
+                return thunkApi.rejectWithValue('database_error')
+            }
+    })
 
 const vote = createAsyncThunk<
 string,
@@ -519,7 +519,7 @@ export const playlistsAsyncActions = {
     subscribeToSongsCollection,
     unsubscribeFromSongsCollection,
     createPlaylist,
-    // deletePlaylist,
+    deletePlaylist,
     subscribeToOwnPlaylists,
     unsubscribeFromOwnPlaylists,
     subscribeToOtherPlaylists,
@@ -527,7 +527,7 @@ export const playlistsAsyncActions = {
     verifyUrl,
     addSong,
     checkIfSongExists,
-    // deleteSong,
+    deleteSong,
     vote,
     // followPlaylist,
     // unfollowPlaylist,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NgRedux, select } from '@angular-redux/store';
 import RootState from '../../store/RootState';
 import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
@@ -19,13 +19,16 @@ export class PlaylistPageComponent implements OnInit {
   toggleInvite: boolean;
   addSongActive: boolean;
   playSongActive: boolean;
+  confirmationVisible = false;
+  message = "Are you sure you want to delete this playlist?";
 
   constructor(
     private ngRedux: NgRedux<RootState>,
-    private route: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
+    this.activatedRoute.params.subscribe(
       params => {
         this.playlistId = params.id
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
@@ -52,6 +55,17 @@ export class PlaylistPageComponent implements OnInit {
     this.toggleInvite = !this.toggleInvite;
   }
 
-  deletePlaylist() {}
+  deletePlaylist() {
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.deletePlaylist(this.playlistId))
+    this.router.navigate(['/']);
+  }
+
+  clickDelete() {
+    this.confirmationVisible = true;
+  }
+
+  closeConfirmation() {
+    this.confirmationVisible = false;
+  }
 
 }
