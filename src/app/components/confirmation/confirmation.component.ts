@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
   @Input() message: string
-  @Output() deleteSong: EventEmitter<any> = new EventEmitter();
+  @Output() delete: EventEmitter<any> = new EventEmitter();
   @Output() close: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
@@ -16,7 +16,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   confirmDelete() {
-    this.deleteSong.emit(null);
+    this.delete.emit(null);
   }
 
   cancel() {
