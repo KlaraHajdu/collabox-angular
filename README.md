@@ -1,27 +1,27 @@
-# CollaboxAngular
+# Collabox in Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.5.
+This project is a rewrite of a previous React project to Angular, which we implemented in a team of two: https://github.com/bbucsek/collabox/ The application is implemented in Angular 11 using Redux Toolkit with angular-redux store. Firebase is used for authentication and Firestore for the NOSQL database. I used Sass as CSS preprocessor. 
 
-## Development server
+## Project status
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Some core features (creating playlists, adding and voting on songs, playing the playlist) have been implemented in the application. Following and unfollowing playlist is  implemented in the current iteration. Adding notifications, starting a quarantine party and adding further tests are planned for the later sprints. 
 
-## Code scaffolding
+## How to use the application
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Create and follow playlists
+Create a playlist and add songs that are shorter than 10 minutes by submitting a youtube url. The playlist owner can delete songs and the playlist itself.
 
-## Build
+### Listen to the playlist 
+Play your playlists as many times as you want. You will not see the youtube video, but you can control the playback (skipping among songs, (un)muting, pausing, stopping).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Voting on songs
+You can upvote/downvote each song in the playlists. The order of the songs in the playlist is determined by their popularity.
+
+## Run the application
+
+Run ` ng serve --configuration=localhost` for a dev server. Navigate to `http://localhost:4200/`. Firebase API key and other configurations are needed to run the application. 
 
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
