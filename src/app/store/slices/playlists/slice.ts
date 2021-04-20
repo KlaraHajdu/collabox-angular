@@ -206,48 +206,48 @@ string,
         }
 })
 
-// const followPlaylist = createAsyncThunk<
-// string,
-// string,
-// { state: RootState }
-// >
-// ('playlists/followPlaylist',
-//     async (payload: string, thunkApi) => {
-//         const state = thunkApi.getState()
-//         const { authentication } = state
-//         const {currentUser} = authentication
-//         const playlistId = payload
-//         try {
-//             const playlistDetails: any = await firestoreApi.getPlaylistDetails(playlistId)
-//             if (!playlistDetails) {
-//                 return thunkApi.rejectWithValue('no_such_playlist')
-//             }
-//             const {ownerName, playlistName } = playlistDetails
-//             await firestoreApi.followPlaylist(currentUser!.id, ownerName, playlistId, playlistName)
-//             return 'playlist_followed'
-//         } catch (error) {
-//             return thunkApi.rejectWithValue('database_error')
-//         }
-//     })
+const followPlaylist = createAsyncThunk<
+string,
+string,
+{ state: RootState }
+>
+('playlists/followPlaylist',
+    async (payload: string, thunkApi) => {
+        const state = thunkApi.getState()
+        const { authentication } = state
+        const {currentUser} = authentication
+        const playlistId = payload
+        try {
+            const playlistDetails: any = await firestoreApi.getPlaylistDetails(playlistId)
+            if (!playlistDetails) {
+                return thunkApi.rejectWithValue('no_such_playlist')
+            }
+            const {ownerName, playlistName } = playlistDetails
+            await firestoreApi.followPlaylist(currentUser!.id, ownerName, playlistId, playlistName)
+            return 'playlist_followed'
+        } catch (error) {
+            return thunkApi.rejectWithValue('database_error')
+        }
+    })
 
-// const unfollowPlaylist = createAsyncThunk<
-//     string,
-//     string,
-//     { state: RootState }
-//     >
-//     ('playlists/unfollowPlaylist',
-//         async (payload: string, thunkApi) => {
-//             const state = thunkApi.getState()
-//             const { authentication } = state
-//             const {currentUser} = authentication
-//             const playlistId = payload
-//             try {
-//                 await firestoreApi.unfollowPlaylist(currentUser!.id, playlistId)
-//                 return 'playlist_unfollowed'
-//             } catch (error) {
-//                 return thunkApi.rejectWithValue('database_error')
-//             }
-//         })
+const unfollowPlaylist = createAsyncThunk<
+    string,
+    string,
+    { state: RootState }
+    >
+    ('playlists/unfollowPlaylist',
+        async (payload: string, thunkApi) => {
+            const state = thunkApi.getState()
+            const { authentication } = state
+            const {currentUser} = authentication
+            const playlistId = payload
+            try {
+                await firestoreApi.unfollowPlaylist(currentUser!.id, playlistId)
+                return 'playlist_unfollowed'
+            } catch (error) {
+                return thunkApi.rejectWithValue('database_error')
+            }
+        })
 
 // const updatePartySong = createAsyncThunk<
 //     string,
@@ -338,15 +338,15 @@ const slice = createSlice({
         [createPlaylist.rejected.type]: (state) => {
             state.loading.createPlaylistLoading = false
         },
-        // [followPlaylist.pending.type]: (state) => {
-        //     state.loading.followPlaylistLoading = true
-        // },
-        // [followPlaylist.fulfilled.type]: (state) => {
-        //     state.loading.followPlaylistLoading = false
-        // },
-        // [followPlaylist.rejected.type]: (state) => {
-        //     state.loading.followPlaylistLoading = false
-        // },
+        [followPlaylist.pending.type]: (state) => {
+            state.loading.followPlaylistLoading = true
+        },
+        [followPlaylist.fulfilled.type]: (state) => {
+            state.loading.followPlaylistLoading = false
+        },
+        [followPlaylist.rejected.type]: (state) => {
+            state.loading.followPlaylistLoading = false
+        },
         [addSong.pending.type]: (state) => {
             state.loading.addSongLoading = true
         },
@@ -529,8 +529,8 @@ export const playlistsAsyncActions = {
     checkIfSongExists,
     deleteSong,
     vote,
-    // followPlaylist,
-    // unfollowPlaylist,
+    followPlaylist,
+    unfollowPlaylist,
     // updatePartySong,
     // endParty,
     // changePlaylistTitle,
