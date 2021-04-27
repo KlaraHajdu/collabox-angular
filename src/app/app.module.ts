@@ -25,6 +25,7 @@ import { SonglistComponent } from './components/songlist/songlist.component';
 import { SonglistItemComponent } from './components/songlist-item/songlist-item.component';
 import { PlaysongComponent } from './components/playsong/playsong.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { FollowPlaylistComponent } from './components/follow-playlist/follow-playlist.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     SonglistComponent,
     SonglistItemComponent,
     PlaysongComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    FollowPlaylistComponent
   ],
   imports: [
     BrowserModule,
