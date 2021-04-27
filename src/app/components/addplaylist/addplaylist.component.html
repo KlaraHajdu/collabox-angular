@@ -2,9 +2,9 @@
   <div class="add-wrapper">
     <p class="title">Create a new playlist</p>
     <form class="form-wrapper" [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
-      <input class="add-input" formControlName="name" placeholder="Enter the playlist name"/>
-      <p class="helper-text"></p>
-      <button type="submit" class="submit-button">Create</button>
+      <input class="add-input" formControlName="name" placeholder=" Enter the playlist name"/>
+      <p *ngIf="name.errors?.maxlength" class="helper-text">Too long name for a playlist!</p>
+      <button type="submit" [disabled]="!playlistForm.valid" class="submit-button">Create</button>
     </form>
   </div>
 </div>

@@ -4,6 +4,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import RootState from '../../store/RootState';
 import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
 import { Observable } from 'rxjs';
+import User from 'src/app/types/User';
 
 
 @Component({
@@ -14,8 +15,12 @@ import { Observable } from 'rxjs';
 export class PlaylistPageComponent implements OnInit {
 
   @select((state:RootState) => state.playlists.currentPlaylist?.playlistName) title$: Observable<string>;
+  @select((state:RootState) => state.playlists.currentPlaylist?.owner) owner$: Observable<string>;
+  @select((state:RootState) => state.playlists.currentPlaylist?.ownerName) ownerName$: Observable<string>;
   @select((state:RootState) => state.playlists.currentPlaylist?.songs) songs$: Observable<any[]>;
+  @select((state:RootState) => state.authentication.currentUser) currentUser$: Observable<User>;
   playlistId: string;
+  ownPlaylist: boolean;
   toggleInvite: boolean;
   addSongActive: boolean;
   playSongActive: boolean;
@@ -34,6 +39,18 @@ export class PlaylistPageComponent implements OnInit {
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToSongsCollection(this.playlistId))
       });
+    this.currentUser$.subscribe(
+      user => {
+        if (user) {
+          this.owner$.subscribe(owner => {
+            if (user.id === owner) {
+              this.ownPlaylist = true;
+            } else {
+              this.ownPlaylist = false;
+            }
+          })
+        }
+    })
   }
 
   ngOnDestroy(): void {

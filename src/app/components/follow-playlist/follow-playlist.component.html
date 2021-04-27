@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="wrapper">
+    <p class="title">Follow a playlist</p>
+    <form class="form-wrapper" [formGroup]="followForm" (ngSubmit)="onSubmit()">
+      <input class="input" formControlName="playlistId" placeholder=" Enter the playlist id"/>
+      <p *ngIf="followForm.get('playlistId').errors?.maxlength || followForm.get('playlistId').errors?.minlength" class="helper-text">
+        Please enter a 20 digit-long id!
+      </p>
+      <button type="submit" class="submit-button">Follow</button>
+    </form>
+  </div>
+</div>

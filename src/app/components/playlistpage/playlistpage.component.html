@@ -1,6 +1,7 @@
 <div class="container">
   <div class="wrapper">
     <div class="title">{{ title$ | async }}</div>
+    <div *ngIf="!ownPlaylist" class="title subtitle">by {{ ownerName$ | async }}</div>
     <div class="icon-wrapper">
       <div class="tooltip-wrapper">
         <button>
@@ -30,7 +31,7 @@
         </span>
         <div class="tooltip invite">Invite others</div>
       </button>
-      <button class="tooltip-wrapper">
+      <button *ngIf="ownPlaylist" class="tooltip-wrapper">
         <span
           class="material-icons-round delete-icon"
           (click)="clickDelete()"

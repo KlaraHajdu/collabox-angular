@@ -1,9 +1,9 @@
 @use "../../../styles"
 
-.add-container
+.container
   @include styles.add-container
 
-.add-wrapper
+.wrapper
   @include styles.add-wrapper
 
 .title
@@ -11,6 +11,9 @@
 
 .form-wrapper
   @include styles.form-wrapper
+
+.input
+  @include styles.add-input
 
 .submit-button
   @include styles.submit-button
@@ -21,12 +24,7 @@
   transition: 0.25s ease-in-out
   transform: scale(1.1)
 
-.add-input
-  @include styles.add-input
-
-.add-input::placeholder
-  color: styles.$theme-color-purple
-  opacity: 0.3
+.helper-text
 
 
 

@@ -25,7 +25,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser$.subscribe( currentUser => {
       if (currentUser) {
-        this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToOwnPlaylists())
+        this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToOwnPlaylists());
+        this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToOtherPlaylists(currentUser.id))
       }
      });
   }
@@ -40,5 +41,9 @@ export class SidebarComponent implements OnInit {
 
   createPlaylist() {
     this.router.navigate(['/addplaylist']);
+  }
+
+  followPlaylist() {
+    this.router.navigate(['/follow']);
   }
 }

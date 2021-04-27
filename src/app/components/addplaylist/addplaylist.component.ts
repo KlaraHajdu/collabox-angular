@@ -19,16 +19,19 @@ export class AddPlaylistComponent implements OnInit {
     public router: Router) { }
 
   ngOnInit(): void {
+  }
 
+  get name() {
+    return this.playlistForm.get('name');
   }
 
   playlistForm = this.fb.group({
-    name: ['', [Validators.required, Validators.maxLength(140)]],
+    name: ['', [Validators.required, Validators.maxLength(30)]],
   })
 
   onSubmit() {
     this.ngRedux.dispatch<any>(playlistsAsyncActions.createPlaylist(this.playlistForm.value.name))
-      .then(promise => {
+    .then(promise => {
        if (promise.payload !== 'database_error') {
          this.router.navigate([`/playlist/${promise.payload}`]);
        }
