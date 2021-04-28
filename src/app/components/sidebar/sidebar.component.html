@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="subtitle-wrapper">
-      <span class="subtitle">Others' playlists</span>
+      <span class="subtitle">Followed playlists</span>
       <div class="tooltip-wrapper">
         <mat-icon class="material-icons-round" class="icon" (click)="followPlaylist()"> add</mat-icon>
         <div class="tooltip add-playlist">Follow a playlist</div>
@@ -28,7 +28,7 @@
     </div>
     <div class="playlist-wrapper">
       <div *ngFor="let playlist of otherPlaylists$ | async" class="playlist" (click)="clickOnPlaylist(playlist.id)">
-        {{ playlist.playlistName }}
+        {{ playlist.playlistName }} <span class="name">by {{playlist.ownerName}}</span>
       </div>
     </div>
   </div>

@@ -2,24 +2,29 @@
 
 .container
   @include styles.add-container
+  position: relative
 
 .wrapper
   @include styles.add-wrapper
-  background-color: rgb(styles.$theme-color-purple, 0.5)
+  position: absolute
   width: 100%
+  background-color: rgb(styles.$theme-color-purple, 0.5)
 
 .title
-  display: flex
-  justify-content: center
-  color: styles.$theme-color-turquoise
+  text-align: center
+  width: inherit
+  margin: 1rem 1rem 1rem 2rem
+  overflow: hidden
+  text-overflow: ellipsis
   font-size: 3rem
   font-weight: 900
-  margin-top: 1rem
-  margin-bottom: 0.5rem
+  color: styles.$theme-color-turquoise
 
 .subtitle
-  font-size: 0.8rem
   margin:0
+  overflow: hidden
+  text-overflow: ellipsis
+  font-size: 0.8rem
 
 .icon-wrapper
   display: flex
@@ -69,8 +74,8 @@ button
   font-size: 2.35rem !important
 
 .play-icon
-  font-size: 2.35rem !important
   margin-right: -5px
+  font-size: 2.35rem !important
 
 .person-add
   margin-left: 3px
