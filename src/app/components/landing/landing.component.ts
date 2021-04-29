@@ -1,5 +1,9 @@
+import { select } from '@angular-redux/store';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service.service';
+import RootState from 'src/app/store/RootState';
+import Notification from 'src/app/types/Notification';
 
 @Component({
   selector: 'app-landing',

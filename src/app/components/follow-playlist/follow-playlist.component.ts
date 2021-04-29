@@ -31,6 +31,7 @@ export class FollowPlaylistComponent implements OnInit {
          this.router.navigate([`/playlist/${this.followForm.value.playlistId}`]);
        }
     })
+    this.followForm.reset();
   }
 
 }

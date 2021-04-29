@@ -1,0 +1,40 @@
+@use '../../../styles'
+
+.container
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  z-index: 1
+  border-radius: 10px
+  color: white
+  box-shadow: -1px 6px 25px -4px #000000
+  width: 20rem
+  max-height: 4rem
+  margin-bottom: 0.6rem
+
+.warning
+  background-color: styles.$theme-color-warning
+
+.error
+  background-color: styles.$theme-color-error
+
+.info
+  background-color: styles.$theme-color-info
+
+.message
+  margin: 1rem
+
+button
+  background-color: transparent
+  outline: none
+  border: 0
+
+.material-icons-outlined
+  margin-top: 0.5rem
+  font-size: 1rem
+  color: styles.$theme-color-dark-turquoise
+  transition: 0.3s ease-in-out
+
+.material-icons-outlined:hover
+  color: styles.$theme-color-light-turquoise
+

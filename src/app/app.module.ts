@@ -26,6 +26,8 @@ import { SonglistItemComponent } from './components/songlist-item/songlist-item.
 import { PlaysongComponent } from './components/playsong/playsong.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { FollowPlaylistComponent } from './components/follow-playlist/follow-playlist.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationItemComponent } from './components/notification-item/notification-item.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { FollowPlaylistComponent } from './components/follow-playlist/follow-pla
     SonglistItemComponent,
     PlaysongComponent,
     ConfirmationComponent,
-    FollowPlaylistComponent
+    FollowPlaylistComponent,
+    NotificationComponent,
+    NotificationItemComponent
   ],
   imports: [
     BrowserModule,
