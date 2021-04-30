@@ -5,6 +5,7 @@ import RootState from '../../store/RootState';
 import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
 import { Observable } from 'rxjs';
 import User from 'src/app/types/User';
+import ActionType from 'src/app/types/ActionType';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class PlaylistPageComponent implements OnInit {
   addSongActive: boolean;
   playSongActive: boolean;
   confirmationVisible = false;
-  message = "Are you sure you want to delete this playlist?";
+  message: string;
+  actionType: ActionType;
 
   constructor(
     private ngRedux: NgRedux<RootState>,
@@ -72,17 +74,32 @@ export class PlaylistPageComponent implements OnInit {
     this.toggleInvite = !this.toggleInvite;
   }
 
-  deletePlaylist() {
-    this.ngRedux.dispatch<any>(playlistsAsyncActions.deletePlaylist(this.playlistId))
-    this.router.navigate(['/']);
+  confirmAction() {
+    switch (this.actionType) {
+      case ActionType.Delete:
+        this.ngRedux.dispatch<any>(playlistsAsyncActions.deletePlaylist(this.playlistId))
+        this.router.navigate(['/']);
+        break;
+      case ActionType.Unfollow:
+        this.ngRedux.dispatch<any>(playlistsAsyncActions.unfollowPlaylist(this.playlistId))
+        this.router.navigate(['/']);
+        break;
+    }
   }
 
   clickDelete() {
+    this.message = "Are you sure you want to delete this playlist?";
+    this.actionType = ActionType.Delete
+    this.confirmationVisible = true;
+  }
+
+  clickUnfollow() {
+    this.message= "Are you sure you want to unfollow this playlist?"
+    this.actionType = ActionType.Unfollow
     this.confirmationVisible = true;
   }
 
   closeConfirmation() {
     this.confirmationVisible = false;
   }
-
 }
