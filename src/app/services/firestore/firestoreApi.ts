@@ -47,14 +47,16 @@ const deletePlaylist = async (currentUserId: string, playlistId: string, followe
     .doc(playlistId)
     .delete()
 
-    await followers.forEach(async (followerId) => {
+    if (followers) {
+      await followers.forEach(async (followerId) => {
         await database
         .collection('users')
         .doc(followerId)
         .collection('otherPlaylists')
         .doc(playlistId)
         .delete()
-    });
+      });
+    }
 }
 
 const followPlaylist = async (userId: string, ownerName: string, playlistId: string, playlistName: string) => {
