@@ -1,6 +1,6 @@
 import { NgRedux } from '@angular-redux/store';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import RootState from 'src/app/store/RootState';
 import { playlistsAsyncActions } from 'src/app/store/slices/playlists/slice';
@@ -25,12 +25,14 @@ export class FollowPlaylistComponent implements OnInit {
   })
 
   onSubmit() {
+    const id = this.followForm.value.playlistId
     this.ngRedux.dispatch<any>(playlistsAsyncActions.followPlaylist(this.followForm.value.playlistId))
       .then(promise => {
        if (promise.payload === 'playlist_followed') {
-         this.router.navigate([`/playlist/${this.followForm.value.playlistId}`]);
+         this.router.navigate([`/playlist/${id}`]);
        }
     })
+    this.followForm.reset();
   }
 
 }

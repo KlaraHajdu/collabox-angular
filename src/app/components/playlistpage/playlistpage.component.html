@@ -1,7 +1,9 @@
 <div class="container">
   <div class="wrapper">
     <div class="title">{{ title$ | async }}</div>
-    <div *ngIf="!ownPlaylist" class="title subtitle">by {{ ownerName$ | async }}</div>
+    <div *ngIf="!ownPlaylist" class="title subtitle">
+      by {{ ownerName$ | async }}
+    </div>
     <div class="icon-wrapper">
       <div class="tooltip-wrapper">
         <button>
@@ -25,20 +27,23 @@
         </span>
         <div class="tooltip start-party">Start a party</div>
       </button>
-      <button class="tooltip-wrapper">
+      <button *ngIf="ownPlaylist"  class="tooltip-wrapper">
         <span class="material-icons-round" id="person-add" (click)="invite()">
           person_add
         </span>
         <div class="tooltip invite">Invite others</div>
       </button>
       <button *ngIf="ownPlaylist" class="tooltip-wrapper">
-        <span
-          class="material-icons-round delete-icon"
-          (click)="clickDelete()"
-        >
+        <span class="material-icons-round delete-icon" (click)="clickDelete()">
           delete
         </span>
         <div class="tooltip delete">Delete playlist</div>
+      </button>
+      <button *ngIf="!ownPlaylist" class="tooltip-wrapper">
+        <span class="material-icons-round" (click)="clickUnfollow()">
+          remove_circle_outline
+        </span>
+        <div class="tooltip unfollow">Unfollow playlist</div>
       </button>
       <span *ngIf="toggleInvite" class="invite-text"
         >Invite with this id: {{ playlistId }}</span
@@ -46,12 +51,15 @@
     </div>
     <playsong *ngIf="playSongActive" class="playSong"></playsong>
     <addsong *ngIf="addSongActive" class="add-song-component"></addsong>
-    <songlist *ngIf="(songs$ | async)?.length > 0" class="song-list-component"></songlist>
+    <songlist
+      *ngIf="(songs$ | async)?.length > 0"
+      class="song-list-component"
+    ></songlist>
   </div>
   <confirmation
     *ngIf="confirmationVisible"
     [message]="message"
-    (delete)="deletePlaylist()"
+    (confirm)="confirmAction()"
     (close)="closeConfirmation()"
   ></confirmation>
 </div>

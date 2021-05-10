@@ -60,7 +60,7 @@ string,
         const {followers} = currentPlaylist
         const playlistId = payload
         try {
-            await firestoreApi.deletePlaylist(currentUser!.id, playlistId, followers)
+            const resp = await firestoreApi.deletePlaylist(currentUser!.id, playlistId, followers)
             return 'playlist_deleted'
         } catch (error) {
             return thunkApi.rejectWithValue('database_error')
@@ -80,7 +80,7 @@ const verifyUrl = createAsyncThunk<
                 return thunkApi.rejectWithValue("no_youtube_url")
             }
             const videoDetails = await getVideoDetails(youtubeId)
-            // const videoDetails = { title: "Title", duration: "PT9M", youtubeId: "fake_youtubeId" }
+
             const videoDurationIsOk = checkIfVideoDurationIsOk(videoDetails.duration)
             if (!videoDurationIsOk) {
                 return thunkApi.rejectWithValue("video_too_long")
@@ -145,7 +145,7 @@ string,
         try{
             const songExists = await firestoreApi.checkIfSongExists(playlistId, youtubeId)
             if (songExists) {
-                return 'duplicate_song'
+                return thunkApi.rejectWithValue('duplicate_song')
             }
             thunkApi.dispatch(addSong({youtubeId, title}))
             return 'not_duplicate_song'
@@ -218,6 +218,12 @@ string,
         const {currentUser} = authentication
         const playlistId = payload
         try {
+            const {playlists} = state
+            const {ownPlaylists} = playlists
+            const ownPlaylistIds = ownPlaylists.map(pl => pl.id)
+            if (ownPlaylistIds.includes(playlistId)) {
+              return thunkApi.rejectWithValue('own_playlist')
+            }
             const playlistDetails: any = await firestoreApi.getPlaylistDetails(playlistId)
             if (!playlistDetails) {
                 return thunkApi.rejectWithValue('no_such_playlist')

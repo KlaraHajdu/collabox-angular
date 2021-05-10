@@ -20,7 +20,7 @@
   <confirmation
     *ngIf="confirmationVisible"
     [message]="message"
-    (delete)="deleteSong()"
+    (confirm)="deleteSong()"
     (close)="closeConfirmation()"
   ></confirmation>
 </div>

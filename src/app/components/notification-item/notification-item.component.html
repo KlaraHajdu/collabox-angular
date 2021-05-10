@@ -1,0 +1,10 @@
+<div class="container" [ngClass]="setSeverityClass()">
+  <div class="message">
+    {{ notificationMessages[notification.message] }}
+  </div>
+  <div>
+    <button (click)="close()">
+      <mat-icon class="material-icons-outlined"> close </mat-icon >
+      </button>
+    </div>
+</div>
