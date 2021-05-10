@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import RootState from 'src/app/store/RootState';
 import Song from 'src/app/types/Song';
@@ -13,6 +13,7 @@ import Song from 'src/app/types/Song';
 export class PlaysongComponent implements OnInit {
   @ViewChild('player') player: any;
   @select((state: RootState) => state.playlists.currentPlaylist?.songs)
+  subscriptions: Subscription
   songs$: Observable<any[]>;
   songsLength: number;
   currentSong: Pick<Song, 'youtubeId' | 'title'> | undefined;
@@ -44,13 +45,19 @@ export class PlaysongComponent implements OnInit {
     this.canChangeSong = false;
     this.hasStarted = false;
 
-    this.songs$.subscribe((songs) => {
+    let subscriptionS = this.songs$.subscribe((songs) => {
       this.songsLength = songs.length;
       if (!this.hasStarted) {
         this.currentSong = songs[0];
       }
     });
     this.hasStarted = true;
+    this.subscriptions = new Subscription();
+    this.subscriptions.add(subscriptionS)
+  }
+
+  ngOnDestroy():void {
+    this.subscriptions.unsubscribe()
   }
 
   onReady(event: any) {
@@ -109,7 +116,7 @@ export class PlaysongComponent implements OnInit {
           playedSong.youtubeId
       );
 
-      this.songs$
+      let subscriptionNotplayedSongs = this.songs$
         .pipe(
           map((songs) =>
             songs.filter((s) => {
@@ -122,6 +129,7 @@ export class PlaysongComponent implements OnInit {
             this.currentSong = notPlayedSongs[0];
           }
         });
+        this.subscriptions.add(subscriptionNotplayedSongs)
     }
     this.canChangeSong = false;
   }
