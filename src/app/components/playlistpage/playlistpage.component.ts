@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgRedux, select } from '@angular-redux/store';
 import RootState from '../../store/RootState';
 import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import User from 'src/app/types/User';
 import ActionType from 'src/app/types/ActionType';
 
@@ -20,7 +20,9 @@ export class PlaylistPageComponent implements OnInit {
   @select((state:RootState) => state.playlists.currentPlaylist?.ownerName) ownerName$: Observable<string>;
   @select((state:RootState) => state.playlists.currentPlaylist?.songs) songs$: Observable<any[]>;
   @select((state:RootState) => state.authentication.currentUser) currentUser$: Observable<User>;
+  subscriptions: Subscription
   playlistId: string;
+  mounted: boolean;
   ownPlaylist: boolean;
   toggleInvite: boolean;
   addSongActive: boolean;
@@ -35,13 +37,14 @@ export class PlaylistPageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(
+    let subscriptionP$ = this.activatedRoute.params.subscribe(
       params => {
         this.playlistId = params.id
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToSongsCollection(this.playlistId))
       });
-    this.currentUser$.subscribe(
+
+      let subscriptionU$ = this.currentUser$.subscribe(
       user => {
         if (user) {
           this.owner$.subscribe(owner => {
@@ -53,11 +56,27 @@ export class PlaylistPageComponent implements OnInit {
           })
         }
     })
+
+    let subscriptionT$ = this.title$.subscribe(
+      title => {
+        if (title === undefined && this.mounted) {
+          this.router.navigate(['/'])
+        }
+      }
+    )
+    this.subscriptions = new Subscription();
+    this.subscriptions.add(subscriptionT$)
+    this.subscriptions.add(subscriptionU$)
+    this.subscriptions.add(subscriptionP$)
+    this.mounted = true;
   }
+
+
 
   ngOnDestroy(): void {
     this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromPlaylist(this.playlistId))
     this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromSongsCollection(this.playlistId))
+    this.subscriptions.unsubscribe()
   }
 
   addSong(){

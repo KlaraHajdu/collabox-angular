@@ -61,7 +61,6 @@ string,
         const playlistId = payload
         try {
             const resp = await firestoreApi.deletePlaylist(currentUser!.id, playlistId, followers)
-            console.log(resp)
             return 'playlist_deleted'
         } catch (error) {
             return thunkApi.rejectWithValue('database_error')
