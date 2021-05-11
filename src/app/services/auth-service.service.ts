@@ -21,13 +21,12 @@ export class AuthService {
     public ngZone: NgZone,
     private ngRedux: NgRedux<RootState>
   ) {
-    this.isLoggedIn = false;
+    this.isLoggedIn = true;
     this.authentication.authState.subscribe(user => {
       if (user) {
         this.ngRedux.dispatch<any>(authenticationActions
           .SET_CURRENT_USER({id: user.uid, name: user.displayName, email: user.email }))
         this.isLoggedIn = true;
-        router.navigate([''])
       } else {
         this.ngRedux.dispatch<any>(authenticationActions
           .SET_CURRENT_USER(null))
@@ -45,6 +44,8 @@ export class AuthService {
       return this.authentication.signInWithPopup(provider)
       .then((result: { user: any; }) => {
         this.SetUserData(result.user);
+        this.isLoggedIn = true;
+        this.router.navigate([''])
       }).catch((error: any) => {
         window.alert(error)
       })
