@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
   @select((state: RootState) => state.playlists.otherPlaylists) otherPlaylists$: Observable<PlaylistData[] | null>;
   @select((state: RootState) => state.authentication.currentUser) currentUser$: Observable<User | null>;
   subscriptions: Subscription
+  userId: string;
 
   constructor(
     public router: Router,
@@ -28,10 +29,16 @@ export class SidebarComponent implements OnInit {
       if (currentUser) {
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToOwnPlaylists());
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToOtherPlaylists(currentUser.id))
+        this.userId = currentUser.id;
       }
      });
      this.subscriptions = new Subscription();
      this.subscriptions.add(subscriotionU)
+  }
+
+  ngOnDestroy(): void {
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromOtherPlaylists(this.userId))
+    this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromOwnPlaylists(this.userId))
   }
 
   onClick() {

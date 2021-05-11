@@ -12,7 +12,7 @@ import User  from "../types/User";
   providedIn: 'root'
 })
 export class AuthService {
-  userData: any;
+  isLoggedIn: boolean;
 
   constructor(
     public firestore: AngularFirestore,
@@ -21,23 +21,19 @@ export class AuthService {
     public ngZone: NgZone,
     private ngRedux: NgRedux<RootState>
   ) {
-
+    this.isLoggedIn = true;
     this.authentication.authState.subscribe(user => {
       if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
         this.ngRedux.dispatch<any>(authenticationActions
-          .SET_CURRENT_USER({id: this.userData.uid, name: this.userData.displayName, email: this.userData.email }))
+          .SET_CURRENT_USER({id: user.uid, name: user.displayName, email: user.email }))
+        this.isLoggedIn = true;
       } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
         this.ngRedux.dispatch<any>(authenticationActions
-          .SET_CURRENT_USER())
+          .SET_CURRENT_USER(null))
+        this.isLoggedIn = false;
+        router.navigate(['login'])
       }
-
     })
-
   }
 
     GoogleAuth() {
@@ -47,10 +43,9 @@ export class AuthService {
     AuthLogin(provider: any) {
       return this.authentication.signInWithPopup(provider)
       .then((result: { user: any; }) => {
-         this.ngZone.run(() => {
-            this.router.navigate(['']);
-          })
         this.SetUserData(result.user);
+        this.isLoggedIn = true;
+        this.router.navigate([''])
       }).catch((error: any) => {
         window.alert(error)
       })
@@ -69,10 +64,11 @@ export class AuthService {
     }
 
     SignOut() {
-      return this.authentication.signOut().then(() => {
-        localStorage.removeItem('user');
-        this.router.navigate(['login']);
-      })
+      return this.authentication.signOut()
+    }
+
+    public isAuthenticated(): boolean {
+      return this.isLoggedIn;
     }
 
 }
