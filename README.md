@@ -4,7 +4,7 @@ This project is a rewrite of a previous React project to Angular, which we imple
 
 ## Project status
 
-Some core features (creating playlists, adding and voting on songs, playing the playlist) have been implemented in the application. Following and unfollowing playlist is  implemented in the current iteration. Adding notifications, starting a quarantine party and adding further tests are planned for the later sprints. 
+Some core features (creating playlists, adding and voting on songs, playing the playlist, following and unfollowing) have been implemented in the application. Starting a quarantine party and adding further tests are planned for the later sprints. 
 
 ## How to use the application
 
