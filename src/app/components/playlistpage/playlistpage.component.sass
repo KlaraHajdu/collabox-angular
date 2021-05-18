@@ -10,6 +10,9 @@
   width: 100%
   background-color: rgb(styles.$theme-color-purple, 0.5)
 
+.title-wrapper
+  display: flex
+
 .title
   text-align: center
   width: inherit
@@ -67,6 +70,9 @@ button
 .material-icons-round:hover
   color: styles.$theme-color-green
 
+.rename-icon
+  font-size: 1rem !important
+
 .delete-icon
   margin-left: 6px
 
@@ -80,6 +86,11 @@ button
 .unfollow
   min-width: 9.5rem
   left: -132%
+
+.rename
+  min-width: 10rem
+  left: -445%
+  top: -10%
 
 .person-add
   margin-left: 3px
@@ -95,3 +106,15 @@ button
   width: 80%
   margin-bottom: 2rem
 
+.edit-title-component
+  width: inherit
+
+.rename:after
+  content: ""
+  position: absolute
+  top: 100%
+  left: 83%
+  margin-left: -5px
+  border-width: 5px
+  border-style: solid
+  border-color: rgb(styles.$theme-color-green, 0.7) transparent transparent transparent

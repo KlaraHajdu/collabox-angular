@@ -1,6 +1,13 @@
 <div class="container">
   <div class="wrapper">
-    <div class="title">{{ title$ | async }}</div>
+    <div *ngIf="!editTitleActive" class="title-wrapper">
+      <div class="title">{{ title$ | async }}</div>
+      <button class="tooltip-wrapper" (click)="editTitle()">
+        <span class="material-icons-round rename-icon"> edit </span>
+        <div class="tooltip rename">Rename the playlist</div>
+      </button>
+    </div>
+    <edit-title *ngIf="editTitleActive" [title]="title$ | async" (close)="closeEditTitle()" class="edit-title-component"></edit-title>
     <div *ngIf="!ownPlaylist" class="title subtitle">
       by {{ ownerName$ | async }}
     </div>
@@ -27,7 +34,7 @@
         </span>
         <div class="tooltip start-party">Start a party</div>
       </button>
-      <button *ngIf="ownPlaylist"  class="tooltip-wrapper">
+      <button *ngIf="ownPlaylist" class="tooltip-wrapper">
         <span class="material-icons-round" id="person-add" (click)="invite()">
           person_add
         </span>
