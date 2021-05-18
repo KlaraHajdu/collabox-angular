@@ -1,0 +1,10 @@
+<form [formGroup]="titleForm" (ngSubmit)="onSubmit()">
+  <input formControlName="newTitle" [ngModel]="title" />
+  <p [style.visibility]="(titleForm.get('newTitle').errors?.maxlength || titleForm.get('newTitle').errors?.required)? 'visible': 'hidden'" class="helper-text">
+    {{titleForm.get('newTitle').errors?.maxlength? "Too long title for a playlist!": "Playlist title cannot be empty!"}}
+  </p>
+  <div class="button-wrapper">
+    <button type="submit" [disabled]="!titleForm.valid" class="submit-button">Save</button>
+    <button class="cancel-button" (click)="clickCancel()">Cancel</button>
+  </div>
+</form>

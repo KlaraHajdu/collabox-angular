@@ -27,6 +27,7 @@ export class PlaylistPageComponent implements OnInit {
   toggleInvite: boolean;
   addSongActive: boolean;
   playSongActive: boolean;
+  editTitleActive: boolean;
   confirmationVisible = false;
   message: string;
   actionType: ActionType;
@@ -120,5 +121,13 @@ export class PlaylistPageComponent implements OnInit {
 
   closeConfirmation() {
     this.confirmationVisible = false;
+  }
+
+  editTitle() {
+    this.editTitleActive = true;
+  }
+
+  closeEditTitle() {
+    this.editTitleActive = false;
   }
 }

@@ -1,0 +1,51 @@
+@use "../../../styles"
+
+form
+  @include styles.form-wrapper
+  margin-top: 1rem
+
+input
+  @include styles.add-input
+  width: 60%
+
+.button-wrapper
+  display: flex
+
+button
+  margin: 0.6rem 1rem
+
+.submit-button
+  @include styles.submit-button
+  background-color: styles.$theme-color-green
+  color: styles.$theme-color-purple
+
+.submit-button:hover
+  @include styles.submit-button
+  background-color: styles.$theme-color-green
+  color: styles.$theme-color-purple
+  transition: 0.25s ease-in-out
+  transform: scale(1.1)
+
+.submit-button:disabled
+  @include styles.submit-button
+  background-color: rgb(styles.$theme-color-green, 0.8)
+  color: styles.$theme-color-purple
+
+.cancel-button
+ @include styles.submit-button
+ color: styles.$theme-color-green
+
+.cancel-button:hover
+  @include styles.submit-button
+  color: styles.$theme-color-green
+  transition: 0.25s ease-in-out
+  transform: scale(1.1)
+
+p
+  margin: 0rem
+
+.helper-text
+  font-size: 0.8rem
+  margin-top: 0.4rem
+
+
