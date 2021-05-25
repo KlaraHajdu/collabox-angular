@@ -12,9 +12,8 @@ import Song from 'src/app/types/Song';
 })
 export class PlaysongComponent implements OnInit {
   @ViewChild('player') player: any;
-  @select((state: RootState) => state.playlists.currentPlaylist?.songs)
+  @select((state: RootState) => state.playlists.currentPlaylist?.songs) songs$: Observable<Song[]>
   subscriptions: Subscription
-  songs$: Observable<any[]>;
   songsLength: number;
   currentSong: Pick<Song, 'youtubeId' | 'title'> | undefined;
   playedSongs: Pick<Song, 'youtubeId' | 'title'>[];
@@ -49,6 +48,9 @@ export class PlaysongComponent implements OnInit {
       this.songsLength = songs.length;
       if (!this.hasStarted) {
         this.currentSong = songs[0];
+        if (songs.length === 1) {
+          this.canSkipForward = false;
+        }
       }
     });
     this.hasStarted = true;

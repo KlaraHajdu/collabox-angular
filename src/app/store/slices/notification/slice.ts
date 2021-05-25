@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { playlistsAsyncActions } from '../playlists/slice';
 import SEVERITY from '../../../types/Severity'
 import NotificationState from './types/NotificationState'
+import Notification from '../../../types/Notification'
 
 const initialState: NotificationState = {
     notifications: [],
@@ -183,7 +184,7 @@ const slice = createSlice({
 },
     reducers: {
         DELETE_NOTIFICATION: (state, action: PayloadAction<number>) => {
-            state.notifications = state.notifications.filter((notification: any ) => notification.id !== action.payload)
+            state.notifications = state.notifications.filter((notification: Notification ) => notification.id !== action.payload)
         },
     },
 })

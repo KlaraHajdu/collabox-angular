@@ -20,7 +20,7 @@
           <div class="tooltip add-song">Add a new song</div>
         </button>
       </div>
-      <div class="tooltip-wrapper">
+      <div *ngIf="(songs$ | async) && ((songs$ | async).length > 0)" class="tooltip-wrapper">
         <span class="material-icons-round play-icon" (click)="startPlayback()">
           play_arrow
         </span>
@@ -28,7 +28,7 @@
           {{ playSongActive ? "Hide playback" : "Start playback" }}
         </div>
       </div>
-      <button class="tooltip-wrapper">
+      <button *ngIf="((songs$ | async) && ((songs$ | async).length > 0) && ownPlaylist)" class="tooltip-wrapper">
         <span class="material-icons-round" (click)="startParty()">
           music_note
         </span>

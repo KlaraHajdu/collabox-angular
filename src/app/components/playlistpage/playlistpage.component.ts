@@ -6,6 +6,7 @@ import { playlistsAsyncActions } from '../../store/slices/playlists/slice';
 import { Observable, Subscription } from 'rxjs';
 import User from 'src/app/types/User';
 import ActionType from 'src/app/types/ActionType';
+import Song from 'src/app/types/Song';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class PlaylistPageComponent implements OnInit {
   @select((state:RootState) => state.playlists.currentPlaylist?.playlistName) title$: Observable<string>;
   @select((state:RootState) => state.playlists.currentPlaylist?.owner) owner$: Observable<string>;
   @select((state:RootState) => state.playlists.currentPlaylist?.ownerName) ownerName$: Observable<string>;
-  @select((state:RootState) => state.playlists.currentPlaylist?.songs) songs$: Observable<any[]>;
+  @select((state:RootState) => state.playlists.currentPlaylist?.songs) songs$: Observable<Song[]>;
   @select((state:RootState) => state.authentication.currentUser) currentUser$: Observable<User>;
   subscriptions: Subscription
   playlistId: string;
@@ -43,6 +44,7 @@ export class PlaylistPageComponent implements OnInit {
         this.playlistId = params.id
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToPlaylist(this.playlistId))
         this.ngRedux.dispatch<any>(playlistsAsyncActions.subscribeToSongsCollection(this.playlistId))
+        this.playSongActive = false;
       });
 
       let subscriptionU$ = this.currentUser$.subscribe(
