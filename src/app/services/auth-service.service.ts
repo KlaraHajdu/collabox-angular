@@ -40,7 +40,7 @@ export class AuthService {
       return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
     }
 
-    AuthLogin(provider: any) {
+    AuthLogin(provider: firebase.auth.GoogleAuthProvider) {
       return this.authentication.signInWithPopup(provider)
       .then((result: { user: any; }) => {
         this.SetUserData(result.user);
