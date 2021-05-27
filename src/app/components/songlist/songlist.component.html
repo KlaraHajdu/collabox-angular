@@ -1,1 +1,1 @@
-<songlist-item *ngFor="let song of (songs$ | async)" [song]="song"></songlist-item>
+<songlist-item *ngFor="let song of (songs$ | async)" [song]="song" [canDelete]="canDelete"></songlist-item>
