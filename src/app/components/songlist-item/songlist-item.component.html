@@ -13,13 +13,14 @@
         thumb_down_alt
       </span>
     </button>
-    <button>
+    <button *ngIf="canDelete">
       <span class="material-icons-round" (click)="deleteClick()"> delete </span>
     </button>
   </div>
   <confirmation
     *ngIf="confirmationVisible"
     [message]="message"
+    [info]=""
     (confirm)="deleteSong()"
     (close)="closeConfirmation()"
   ></confirmation>

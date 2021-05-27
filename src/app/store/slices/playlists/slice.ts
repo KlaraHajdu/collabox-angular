@@ -309,6 +309,22 @@ const changePlaylistTitle = createAsyncThunk<
         }
     )
 
+const toggleLockStatus = createAsyncThunk<
+    string,
+    {playlistId: string, newLockStatus: boolean},
+    {state: RootState}
+    >('playlists/toggleLockStatus',
+        async (payload: {playlistId: string, newLockStatus: boolean}, thunkApi) => {
+            const { playlistId, newLockStatus } = payload
+            try {
+                await firestoreApi.toggleLockStatus(playlistId, newLockStatus)
+                return 'lockStatus_toggled';
+            } catch {
+                return thunkApi.rejectWithValue('database_error')
+            }
+        }
+    )
+
 const slice = createSlice({
     name: 'playlists',
     initialState,
@@ -534,4 +550,5 @@ export const playlistsAsyncActions = {
     // updatePartySong,
     // endParty,
     changePlaylistTitle,
+    toggleLockStatus
 }

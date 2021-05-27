@@ -2,55 +2,87 @@
   <div class="wrapper">
     <div *ngIf="!editTitleActive" class="title-wrapper">
       <div class="title">{{ title$ | async }}</div>
-      <button class="tooltip-wrapper" (click)="editTitle()">
-        <span class="material-icons-round rename-icon"> edit </span>
-        <div class="tooltip rename">Rename the playlist</div>
-      </button>
+      <div class="tooltip-wrapper">
+        <span class="material-icons-round protect-status-icon">
+          {{ (lockStatus$ | async) ? "lock" : "lock_open" }}
+        </span>
+        <div class="tooltip lock-status-tooltip">
+          This playlist is {{ (lockStatus$ | async) ? "locked" : "not locked" }}
+        </div>
+      </div>
     </div>
-    <edit-title *ngIf="editTitleActive" [title]="title$ | async" (close)="closeEditTitle()" class="edit-title-component"></edit-title>
+    <edit-title
+      *ngIf="editTitleActive"
+      [title]="title$ | async"
+      (close)="closeEditTitle()"
+      class="edit-title-component"
+    ></edit-title>
     <div *ngIf="!ownPlaylist" class="title subtitle">
       by {{ ownerName$ | async }}
     </div>
     <div class="icon-wrapper">
-      <div class="tooltip-wrapper">
-        <button>
-          <span class="material-icons-round add-icon" (click)="addSong()">
-            playlist_add
-          </span>
-          <div class="tooltip add-song">Add a new song</div>
-        </button>
-      </div>
-      <div *ngIf="(songs$ | async) && ((songs$ | async).length > 0)" class="tooltip-wrapper">
+      <button *ngIf="ownPlaylist || (!ownPlaylist && !locked)" class="tooltip-wrapper">
+        <span class="material-icons-round add-icon" (click)="addSong()">
+          playlist_add
+        </span>
+        <div class="tooltip add-song-tooltip">Add a new song</div>
+      </button>
+      <button *ngIf="ownPlaylist" class="tooltip-wrapper">
+        <span
+          class="material-icons-round lock-icon"
+          (click)="clickToggleLockStatus()"
+        >
+          {{ (lockStatus$ | async) ? "lock_open" : "lock" }}
+        </span>
+        <div class="tooltip toggle-lock-status-tooltip">
+          {{
+            (lockStatus$ | async)
+              ? "Unlock this playlist"
+              : "Lock this playlist"
+          }}
+        </div>
+      </button>
+      <button *ngIf="ownPlaylist" class="tooltip-wrapper" (click)="editTitle()">
+        <span class="material-icons-round rename-icon"> edit </span>
+        <div class="tooltip rename-tooltip">Rename the playlist</div>
+      </button>
+      <button
+        *ngIf="(songs$ | async) && (songs$ | async).length > 0"
+        class="tooltip-wrapper"
+      >
         <span class="material-icons-round play-icon" (click)="startPlayback()">
           play_arrow
         </span>
-        <div class="tooltip start-playback">
+        <div class="tooltip start-playback-tooltip">
           {{ playSongActive ? "Hide playback" : "Start playback" }}
         </div>
-      </div>
-      <button *ngIf="((songs$ | async) && ((songs$ | async).length > 0) && ownPlaylist)" class="tooltip-wrapper">
+      </button>
+      <button
+        *ngIf="(songs$ | async) && (songs$ | async).length > 0 && ownPlaylist"
+        class="tooltip-wrapper"
+      >
         <span class="material-icons-round" (click)="startParty()">
           music_note
         </span>
-        <div class="tooltip start-party">Start a party</div>
+        <div class="tooltip start-party-tooltip">Start a party</div>
       </button>
       <button *ngIf="ownPlaylist" class="tooltip-wrapper">
-        <span class="material-icons-round" id="person-add" (click)="invite()">
+        <span class="material-icons-round invite-icon" id="person-add" (click)="invite()">
           person_add
         </span>
-        <div class="tooltip invite">Invite others</div>
+        <div class="tooltip invite-tooltip">Invite others</div>
       </button>
       <button *ngIf="ownPlaylist" class="tooltip-wrapper">
         <span class="material-icons-round delete-icon" (click)="clickDelete()">
           delete
         </span>
-        <div class="tooltip delete">Delete playlist</div>
+        <div class="tooltip delete-tooltip">Delete playlist</div>
       </button>
       <button *ngIf="!ownPlaylist" class="tooltip-wrapper">
         <span class="material-icons-round" (click)="clickUnfollow()">
           remove_circle_outline
         </span>
-        <div class="tooltip unfollow">Unfollow playlist</div>
+        <div class="tooltip unfollow-tooltip">Unfollow playlist</div>
       </button>
       <span *ngIf="toggleInvite" class="invite-text"
         >Invite with this id: {{ playlistId }}</span
@@ -66,6 +98,7 @@
   <confirmation
     *ngIf="confirmationVisible"
     [message]="message"
+    [info]="info"
     (confirm)="confirmAction()"
     (close)="closeConfirmation()"
   ></confirmation>

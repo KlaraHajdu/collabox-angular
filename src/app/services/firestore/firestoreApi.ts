@@ -12,7 +12,7 @@ let unsubscribeFromOwnP: (id: string) => void | undefined;
 let unsubscribeFromOtherP: (id: string) => void | undefined;
 
 const createPlaylist = async (owner: string, ownerName: string, playlistName: string) => {
-    const response = await database.collection('playlists').add({ owner, ownerName, playlistName })
+    const response = await database.collection('playlists').add({ owner, ownerName, playlistName, lockStatus: false })
     const playlistId = response.id
     await database
     .collection('users')
@@ -258,7 +258,6 @@ const changeTitle = async (playlistId: string, playlistName: string, ownerId: st
     if (followers) {
         changePlaylistNameInFollowersList(playlistId, playlistName, followers)
     }
-
 }
 
 const changePlaylistTitle = async (playlistId: string, playlistName: string) => {
@@ -294,6 +293,14 @@ const changePlaylistNameInUserList = async (playlistId: string, playlistName: st
     })
 }
 
+const toggleLockStatus = async (playlistId: string, newLockStatus: boolean) => {
+
+  await database
+  .collection('playlists')
+  .doc(playlistId)
+  .update({lockStatus: newLockStatus})
+}
+
 export const firestoreApi = {
     createPlaylist,
     getPlaylistDetails,
@@ -316,4 +323,5 @@ export const firestoreApi = {
     updatePartySong,
     endParty,
     changeTitle,
+    toggleLockStatus
 }

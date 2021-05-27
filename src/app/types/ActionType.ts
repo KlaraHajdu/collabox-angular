@@ -1,6 +1,7 @@
 enum ActionType {
     Delete,
-    Unfollow
+    Unfollow,
+    ToggleLock
 }
 
 export default ActionType

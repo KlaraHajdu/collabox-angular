@@ -10,4 +10,5 @@ export const notificationMessages = {
     playlist_followed: "Playlist is now followed",
     playlist_unfollowed: "Playlist is unfollowed",
     own_playlist: "You cannot follow your own playlist!",
+    lockStatus_toggled: "Lock status of the playlist changed"
 }

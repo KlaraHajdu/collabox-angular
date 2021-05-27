@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
   @Input() message: string
+  @Input() info: string
   @Output() confirm: EventEmitter<any> = new EventEmitter();
   @Output() close: EventEmitter<any> = new EventEmitter();
 

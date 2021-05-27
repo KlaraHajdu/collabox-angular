@@ -12,6 +12,7 @@
 
 .title-wrapper
   display: flex
+  max-width: 100%
 
 .title
   text-align: center
@@ -42,27 +43,54 @@ button
   font: inherit
   background-color: transparent
 
-.add-song
+.add-song-tooltip
   min-width: 8.75rem
   left: -110%
   top: -80%
 
-.start-playback
+.start-playback-tooltip
   min-width: 7.5rem
-  left: -150%
-  top: -85%
+  left: -100%
+  top: -80%
 
-.start-party
+.start-party-tooltip
   min-width: 6.875rem
   left: -87%
 
-.invite
+.invite-tooltip
   min-width: 6.875rem
   left: -85%
 
-.delete
+.delete-tooltip
   min-width: 7.5rem
-  left: -75%
+  left: -98%
+
+.unfollow-tooltip
+  min-width: 9.5rem
+  left: -132%
+
+.rename-tooltip
+  min-width: 10rem
+  left: -245%
+  top: -120%
+
+.toggle-lock-status-tooltip
+  min-width: 10rem
+  left: -150%
+
+.lock-status-tooltip
+  min-width: 13rem
+  top: -35px
+  left: -690%
+
+.lock-status-tooltip:after
+  content: ""
+  position: absolute
+  left: 95%
+  margin-left: -10px
+  border-width: 5px
+  border-style: solid
+  border-color: rgb(styles.$theme-color-green, 0.7) transparent transparent transparent
 
 .material-icons-round
   @include styles.material-icons-round
@@ -70,30 +98,30 @@ button
 .material-icons-round:hover
   color: styles.$theme-color-green
 
-.rename-icon
-  font-size: 1rem !important
+.protect-status-icon
+  margin: 0.5rem 0.5rem 0 0
+  font-size: 1.25rem !important
 
-.delete-icon
-  margin-left: 6px
+.protect-status-icon:hover
+  color: styles.$theme-color-turquoise
+
+.rename-icon
+  font-size: 1.7rem !important
+  margin-left: -0.25rem
+  margin-right: -0.4rem
 
 .add-icon
   font-size: 2.35rem !important
+
+.lock-icon
+  margin-left: -0.25rem
 
 .play-icon
   margin-right: -5px
   font-size: 2.35rem !important
 
-.unfollow
-  min-width: 9.5rem
-  left: -132%
-
-.rename
-  min-width: 10rem
-  left: -445%
-  top: -10%
-
-.person-add
-  margin-left: 3px
+.invite-icon
+  margin-right: -0.25rem
 
 .invite-text
   font-size:1rem
@@ -109,12 +137,4 @@ button
 .edit-title-component
   width: inherit
 
-.rename:after
-  content: ""
-  position: absolute
-  top: 100%
-  left: 83%
-  margin-left: -5px
-  border-width: 5px
-  border-style: solid
-  border-color: rgb(styles.$theme-color-green, 0.7) transparent transparent transparent
+

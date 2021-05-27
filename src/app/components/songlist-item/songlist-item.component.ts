@@ -13,6 +13,7 @@ import PlaylistType from 'src/app/types/PlaylistType';
 })
 export class SonglistItemComponent implements OnInit {
   @Input() song: Song;
+  @Input() canDelete: boolean;
   message: string;
   confirmationVisible: boolean
 
