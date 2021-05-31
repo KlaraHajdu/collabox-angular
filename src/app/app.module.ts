@@ -29,6 +29,7 @@ import { FollowPlaylistComponent } from './components/follow-playlist/follow-pla
 import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationItemComponent } from './components/notification-item/notification-item.component';
 import { EditTitleComponent} from './components/edit-title/edit-title.component';
+import { IntroductionComponent} from './components/introduction/introduction.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditTitleComponent} from './components/edit-title/edit-title.component'
     FollowPlaylistComponent,
     NotificationComponent,
     NotificationItemComponent,
-    EditTitleComponent
+    EditTitleComponent,
+    IntroductionComponent
   ],
   imports: [
     BrowserModule,
