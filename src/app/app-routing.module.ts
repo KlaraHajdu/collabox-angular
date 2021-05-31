@@ -7,6 +7,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AddPlaylistComponent } from './components/addplaylist/addplaylist.component';
 import { PlaylistPageComponent } from './components/playlistpage/playlistpage.component';
 import { FollowPlaylistComponent } from './components/follow-playlist/follow-playlist.component';
+import { IntroductionComponent } from './components/introduction/introduction.component';
 
 const routes: Routes = [
   { path: '',
@@ -18,7 +19,9 @@ const routes: Routes = [
       {path:'playlist/:id',
       component: PlaylistPageComponent},
       {path:'follow',
-      component: FollowPlaylistComponent}
+      component: FollowPlaylistComponent},
+      {path:'',
+      component: IntroductionComponent}
     ]},
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' },
