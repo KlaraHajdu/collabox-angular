@@ -96,9 +96,10 @@
       <button
         *ngIf="!ownPlaylist && (partySong$ | async)"
         (click)="startParty()"
-        class="live-party"
+        class="live-party tooltip-wrapper"
       >
         Live party
+        <div class="tooltip party-tooltip">{{partyActive? "Leave the party":"Join the live party"}}</div>
       </button>
       <span *ngIf="toggleInvite" class="invite-text"
         >Invite with this id: {{ playlistId }}</span
