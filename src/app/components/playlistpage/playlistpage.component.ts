@@ -66,15 +66,23 @@ export class PlaylistPageComponent implements OnInit {
       this.partyActive = false;
     });
 
+    let subscriptionO$;
+    let subscriptionPS$;
     let subscriptionU$ = this.currentUser$.subscribe((user) => {
       if (user) {
-        this.owner$.subscribe((owner) => {
+        subscriptionO$ = this.owner$.subscribe((owner) => {
           if (user.id === owner) {
             this.ownPlaylist = true;
           } else {
             this.ownPlaylist = false;
           }
         });
+        subscriptionPS$ = this.partySong$.subscribe(
+          (partySong) => {
+          if (!!partySong  && this.ownPlaylist && (this.partyActive === false)) {
+            this.ngRedux.dispatch<any>(playlistsAsyncActions.endParty(this.playlistId));
+          }
+        })
       }
     });
 
@@ -88,11 +96,14 @@ export class PlaylistPageComponent implements OnInit {
       this.locked = lockStatus;
     });
 
+
+
     this.subscriptions = new Subscription();
     this.subscriptions.add(subscriptionT$);
     this.subscriptions.add(subscriptionU$);
     this.subscriptions.add(subscriptionP$);
     this.subscriptions.add(subscriptionL$);
+    this.subscriptions.add(subscriptionPS$);
     this.mounted = true;
   }
 
