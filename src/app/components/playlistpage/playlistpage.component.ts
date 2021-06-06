@@ -24,6 +24,12 @@ export class PlaylistPageComponent implements OnInit {
   ownerName$: Observable<string>;
   @select((state: RootState) => state.playlists.currentPlaylist?.songs)
   songs$: Observable<Song[]>;
+  @select((state: RootState) => state.playlists.currentPlaylist?.partySong)
+  partySong$: Observable<{
+    youtubeId: string;
+    title: string;
+    startTime: string;
+  }>;
   @select((state: RootState) => state.authentication.currentUser)
   currentUser$: Observable<User>;
   subscriptions: Subscription;
@@ -34,6 +40,7 @@ export class PlaylistPageComponent implements OnInit {
   toggleInvite: boolean;
   addSongActive: boolean;
   playSongActive: boolean;
+  partyActive: boolean;
   editTitleActive: boolean;
   confirmationVisible = false;
   message: string;
@@ -56,6 +63,7 @@ export class PlaylistPageComponent implements OnInit {
         playlistsAsyncActions.subscribeToSongsCollection(this.playlistId)
       );
       this.playSongActive = false;
+      this.partyActive = false;
     });
 
     let subscriptionU$ = this.currentUser$.subscribe((user) => {
@@ -104,9 +112,22 @@ export class PlaylistPageComponent implements OnInit {
 
   startPlayback() {
     this.playSongActive = !this.playSongActive;
+    if (this.partyActive) {
+      this.partyActive = false;
+    }
   }
 
-  startParty() {}
+  startParty() {
+    this.partyActive = !this.partyActive;
+    if (this.playSongActive) {
+      this.playSongActive = false;
+    }
+  }
+
+  closeParty() {
+    console.log("close party in playlistpage")
+    this.partyActive = false;
+  }
 
   invite() {
     this.toggleInvite = !this.toggleInvite;
@@ -134,8 +155,8 @@ export class PlaylistPageComponent implements OnInit {
           })
         );
         this.confirmationVisible = false;
-        this.message = "";
-        this.info = "";
+        this.message = '';
+        this.info = '';
         break;
     }
   }

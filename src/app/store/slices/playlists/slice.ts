@@ -255,35 +255,35 @@ const unfollowPlaylist = createAsyncThunk<
             }
         })
 
-// const updatePartySong = createAsyncThunk<
-//     string,
-//     {playlistId: string, currentSong: Pick<Song, 'youtubeId' | 'title'>},
-//     {state: RootState}
-//     >('playlists/updatePartySong',
-//         async (payload: {playlistId: string, currentSong: Pick<Song, 'youtubeId' | 'title'>}, thunkApi) => {
-//             const { playlistId, currentSong } = payload;
-//             try{
-//                 await firestoreApi.updatePartySong(playlistId, currentSong.youtubeId, currentSong.title)
-//                 return 'partysong_updated'
-//             } catch{
-//                 return thunkApi.rejectWithValue('database_error')
-//             }
-// })
+const updatePartySong = createAsyncThunk<
+    string,
+    {playlistId: string, currentSong: Pick<Song, 'youtubeId' | 'title'>},
+    {state: RootState}
+    >('playlists/updatePartySong',
+        async (payload: {playlistId: string, currentSong: Pick<Song, 'youtubeId' | 'title'>}, thunkApi) => {
+            const { playlistId, currentSong } = payload;
+            try{
+                await firestoreApi.updatePartySong(playlistId, currentSong.youtubeId, currentSong.title)
+                return 'partysong_updated'
+            } catch{
+                return thunkApi.rejectWithValue('database_error')
+            }
+})
 
-// const endParty = createAsyncThunk<
-//     string,
-//     string,
-//     {state: RootState}
-//     >('playlists/endParty',
-//         async (payload: string, thunkApi) => {
-//             const playlistId = payload;
-//             try{
-//                 await firestoreApi.endParty(playlistId)
-//                 return 'party_ended'
-//             } catch{
-//                 return thunkApi.rejectWithValue('database_error')
-//             }
-// })
+const endParty = createAsyncThunk<
+    string,
+    string,
+    {state: RootState}
+    >('playlists/endParty',
+        async (payload: string, thunkApi) => {
+            const playlistId = payload;
+            try{
+                await firestoreApi.endParty(playlistId)
+                return 'party_ended'
+            } catch{
+                return thunkApi.rejectWithValue('database_error')
+            }
+})
 
 const changePlaylistTitle = createAsyncThunk<
     string,
@@ -547,8 +547,8 @@ export const playlistsAsyncActions = {
     vote,
     followPlaylist,
     unfollowPlaylist,
-    // updatePartySong,
-    // endParty,
+    updatePartySong,
+    endParty,
     changePlaylistTitle,
     toggleLockStatus
 }

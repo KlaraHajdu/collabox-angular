@@ -33,6 +33,7 @@ export class PlaysongComponent implements OnInit {
   ngOnInit(): void {
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api?autoplay=1';
+    tag.id='youtube-player-playsong';
     document.body.appendChild(tag);
 
     this.playedSongs = [];
@@ -60,6 +61,8 @@ export class PlaysongComponent implements OnInit {
 
   ngOnDestroy():void {
     this.subscriptions.unsubscribe()
+    var elem = document.querySelector('#youtube-player-playsong');
+    elem.parentNode.removeChild(elem);
   }
 
   onReady(event: any) {
