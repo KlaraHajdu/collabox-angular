@@ -125,7 +125,6 @@ export class PlaylistPageComponent implements OnInit {
   }
 
   closeParty() {
-    console.log("close party in playlistpage")
     this.partyActive = false;
   }
 

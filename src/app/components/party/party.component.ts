@@ -15,7 +15,7 @@ export class PartyComponent implements OnInit {
   @Input() isHost: boolean;
   @Input() playlistId: string;
   @Output() close: EventEmitter<any> = new EventEmitter();
-  @select ((state: RootState) => state.playlists.currentPlaylist.partySong) partySong$: Observable<Song>;
+  @select ((state: RootState) => state.playlists.currentPlaylist.partySong) partySong$: Observable<any>;
   @select ((state: RootState) => state.playlists.currentPlaylist.songs) songs$: Observable<Song[]>
   subscriptions: Subscription;
   playedSongs: Pick<Song, "title" | "youtubeId">[];
@@ -23,6 +23,7 @@ export class PartyComponent implements OnInit {
   nextSong: Pick<Song, "title" | "youtubeId">;
   isMuted: boolean;
   hasStarted: boolean;
+  startSecond: number;
 
   constructor( private ngRedux: NgRedux<RootState>) { }
 
@@ -38,9 +39,7 @@ export class PartyComponent implements OnInit {
     if (this.isHost){
       subscriptionS = this.songs$.subscribe(
         songs => {
-          console.log("subs")
           this.songs = songs
-          console.log(songs)
         if (songs) {
           this.nextSong = this.songs[0];
           this.ngRedux.dispatch<any>(playlistsAsyncActions.updatePartySong({playlistId: this.playlistId, currentSong: this.nextSong}))
@@ -51,8 +50,12 @@ export class PartyComponent implements OnInit {
 
     let subscriptionP = this.partySong$.subscribe(
       partySong => {
+        if (!this.hasStarted && !this.isHost) {
+          this.startSecond = (Date.now()- partySong.startTime)/1000;
+        } else {
+          this.startSecond = 0;
+        }
         if (this.hasStarted && !partySong) {
-          console.log("no partySong")
           this.close.emit(null);
         }
         this.hasStarted = true;
@@ -64,7 +67,6 @@ export class PartyComponent implements OnInit {
     this.subscriptions.add(subscriptionP);
     this.playedSongs = [];
     this.isMuted = false;
-    console.log(this.nextSong)
   }
 
   ngOnDestroy():void {
@@ -78,25 +80,27 @@ export class PartyComponent implements OnInit {
   }
 
   onReady(event: any) {
+    this.player.seekTo(this.startSecond);
     this.player.playVideo();
     this.player.unMute();
   }
 
   onStateChange(event: any) {
-    console.log("onstatechange")
-    if (event.data === window['YT'].PlayerState.ENDED) {
-      console.log("ended")
-      this.onEnd();
-    }
+    switch (event.data) {
+      case window['YT'].PlayerState.ENDED:
+        this.onEnd();
+        break;
+      case window['YT'].PlayerState.CUED:
+          this.player.playVideo();
+        break;
+      }
   }
 
   onEnd() {
-    console.log("onEnd")
     if (this.isHost) {
       this.playedSongs.push(this.nextSong);
       let playedSongsYoutubeIds = this.playedSongs.map(song => song.youtubeId);
       let notPlayedSongs = this.songs.filter(song => !playedSongsYoutubeIds.includes(song.youtubeId))
-      console.log(notPlayedSongs)
       if (notPlayedSongs.length > 0) {
         this.nextSong = {youtubeId: notPlayedSongs[0].youtubeId, title: notPlayedSongs[0].title};
         this.ngRedux.dispatch<any>(playlistsAsyncActions.updatePartySong({playlistId: this.playlistId, currentSong: this.nextSong}))
