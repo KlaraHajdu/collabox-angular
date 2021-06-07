@@ -34,6 +34,8 @@ export class SonglistComponent implements OnInit {
           subscriptionO$ = this.owner$.subscribe(owner => {
             if (user.id === owner){
               this.ownPlaylist = true;
+            } else {
+              this.ownPlaylist = false;
             }
           })
         }
