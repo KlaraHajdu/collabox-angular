@@ -24,6 +24,7 @@ export class PartyComponent implements OnInit {
   isMuted: boolean;
   hasStarted: boolean;
   startSecond: number;
+  canChangeSong: boolean;
 
   constructor( private ngRedux: NgRedux<RootState>) { }
 
@@ -40,7 +41,7 @@ export class PartyComponent implements OnInit {
       subscriptionS = this.songs$.subscribe(
         songs => {
           this.songs = songs
-        if (songs) {
+        if (songs && !this.hasStarted) {
           this.nextSong = this.songs[0];
           this.ngRedux.dispatch<any>(playlistsAsyncActions.updatePartySong({playlistId: this.playlistId, currentSong: this.nextSong}))
         }
@@ -83,12 +84,14 @@ export class PartyComponent implements OnInit {
     this.player.seekTo(this.startSecond);
     this.player.playVideo();
     this.player.unMute();
+    this.canChangeSong = true;
   }
 
   onStateChange(event: any) {
     switch (event.data) {
       case window['YT'].PlayerState.ENDED:
         this.onEnd();
+        this.canChangeSong = true;
         break;
       case window['YT'].PlayerState.CUED:
           this.player.playVideo();
@@ -101,12 +104,13 @@ export class PartyComponent implements OnInit {
       this.playedSongs.push(this.nextSong);
       let playedSongsYoutubeIds = this.playedSongs.map(song => song.youtubeId);
       let notPlayedSongs = this.songs.filter(song => !playedSongsYoutubeIds.includes(song.youtubeId))
-      if (notPlayedSongs.length > 0) {
+      if (notPlayedSongs.length > 0 && this.canChangeSong) {
         this.nextSong = {youtubeId: notPlayedSongs[0].youtubeId, title: notPlayedSongs[0].title};
         this.ngRedux.dispatch<any>(playlistsAsyncActions.updatePartySong({playlistId: this.playlistId, currentSong: this.nextSong}))
       } else {
         this.ngRedux.dispatch<any>(playlistsAsyncActions.endParty(this.playlistId));
       }
+      this.canChangeSong = false;
     }
   }
 
