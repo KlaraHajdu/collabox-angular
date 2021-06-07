@@ -17,7 +17,7 @@ export class SonglistComponent implements OnInit {
   @select((state: RootState) => state.playlists.currentPlaylist.lockStatus) lockStatus$: Observable<boolean>;
   @select((state: RootState) => state.authentication.currentUser) currentUser$: Observable<User>;
   canDelete: boolean;
-  ownPlayist: boolean;
+  ownPlaylist: boolean;
   subscriptions: Subscription;
 
   constructor() { }
@@ -33,7 +33,7 @@ export class SonglistComponent implements OnInit {
         if (user) {
           subscriptionO$ = this.owner$.subscribe(owner => {
             if (user.id === owner){
-              this.ownPlayist = true;
+              this.ownPlaylist = true;
             }
           })
         }
@@ -41,7 +41,7 @@ export class SonglistComponent implements OnInit {
 
     let subscriptionL$ = this.lockStatus$.subscribe(
       lockStatus => {
-        if (this.ownPlayist) {
+        if (this.ownPlaylist) {
           this.canDelete = true;
         } else if (!lockStatus) {
           this.canDelete = true;
