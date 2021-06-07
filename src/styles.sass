@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Megrim&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Baumans&display=swap')
 
 $theme-color-green: #A3D11F
 $theme-color-light-green: #aaed96
@@ -80,6 +81,19 @@ body
   font-size: 2rem !important
   cursor: pointer
   transition: 0.25s
+
+@mixin youtube-container
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 40vw
+  margin-bottom: 2rem
+  border-radius: 10px
+  box-shadow: black
+  background: rgb($theme-color-yellow, 0.8)
+
+.youtube
+  display: none
 
 .tooltip-wrapper
   position: relative

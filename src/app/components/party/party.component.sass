@@ -2,20 +2,15 @@
 
 .youtube-container
   @include styles.youtube-container
+  flex-direction: row
+  justify-content: space-between
+  width: 40vw
 
 .title
-  align-self: center
-  max-width: 90%
-  overflow: hidden
-  text-overflow: ellipsis
-  margin: 1rem 0 1rem 0
-  font-size: 1.2rem
-  line-height: 1.6rem
-  font-weight: 600
-  white-space: nowrap
-  color: styles.$theme-color-purple
+  margin: 1rem
 
 button
+  vertical-align: top
   border: none
   outline: none
   color: styles.$theme-color-dark-green
@@ -25,14 +20,15 @@ button
 button:hover
   color: styles.$theme-color-purple
 
-button:disabled
-  color: grey
-
 .material-icons-round
   font-size: 2rem
   transition: 0.25s ease-in-out
 
 .material-icons-round.unmute-icon
-  margin-left: -0.75rem
-  margin-right: 0.75rem
+  margin-top: -0.15rem
 
+
+.control-wrapper
+  display: flex
+  flex-direction: column
+  justify-items: start

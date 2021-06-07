@@ -24,6 +24,12 @@ export class PlaylistPageComponent implements OnInit {
   ownerName$: Observable<string>;
   @select((state: RootState) => state.playlists.currentPlaylist?.songs)
   songs$: Observable<Song[]>;
+  @select((state: RootState) => state.playlists.currentPlaylist?.partySong)
+  partySong$: Observable<{
+    youtubeId: string;
+    title: string;
+    startTime: string;
+  }>;
   @select((state: RootState) => state.authentication.currentUser)
   currentUser$: Observable<User>;
   subscriptions: Subscription;
@@ -34,6 +40,7 @@ export class PlaylistPageComponent implements OnInit {
   toggleInvite: boolean;
   addSongActive: boolean;
   playSongActive: boolean;
+  partyActive: boolean;
   editTitleActive: boolean;
   confirmationVisible = false;
   message: string;
@@ -56,17 +63,26 @@ export class PlaylistPageComponent implements OnInit {
         playlistsAsyncActions.subscribeToSongsCollection(this.playlistId)
       );
       this.playSongActive = false;
+      this.partyActive = false;
     });
 
+    let subscriptionO$;
+    let subscriptionPS$;
     let subscriptionU$ = this.currentUser$.subscribe((user) => {
       if (user) {
-        this.owner$.subscribe((owner) => {
+        subscriptionO$ = this.owner$.subscribe((owner) => {
           if (user.id === owner) {
             this.ownPlaylist = true;
           } else {
             this.ownPlaylist = false;
           }
         });
+        subscriptionPS$ = this.partySong$.subscribe(
+          (partySong) => {
+          if (!!partySong  && this.ownPlaylist && (this.partyActive === false)) {
+            this.ngRedux.dispatch<any>(playlistsAsyncActions.endParty(this.playlistId));
+          }
+        })
       }
     });
 
@@ -80,11 +96,14 @@ export class PlaylistPageComponent implements OnInit {
       this.locked = lockStatus;
     });
 
+
+
     this.subscriptions = new Subscription();
     this.subscriptions.add(subscriptionT$);
     this.subscriptions.add(subscriptionU$);
     this.subscriptions.add(subscriptionP$);
     this.subscriptions.add(subscriptionL$);
+    this.subscriptions.add(subscriptionPS$);
     this.mounted = true;
   }
 
@@ -104,9 +123,21 @@ export class PlaylistPageComponent implements OnInit {
 
   startPlayback() {
     this.playSongActive = !this.playSongActive;
+    if (this.partyActive) {
+      this.partyActive = false;
+    }
   }
 
-  startParty() {}
+  startParty() {
+    this.partyActive = !this.partyActive;
+    if (this.playSongActive) {
+      this.playSongActive = false;
+    }
+  }
+
+  closeParty() {
+    this.partyActive = false;
+  }
 
   invite() {
     this.toggleInvite = !this.toggleInvite;
@@ -134,8 +165,8 @@ export class PlaylistPageComponent implements OnInit {
           })
         );
         this.confirmationVisible = false;
-        this.message = "";
-        this.info = "";
+        this.message = '';
+        this.info = '';
         break;
     }
   }

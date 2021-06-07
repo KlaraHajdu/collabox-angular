@@ -30,6 +30,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { NotificationItemComponent } from './components/notification-item/notification-item.component';
 import { EditTitleComponent} from './components/edit-title/edit-title.component';
 import { IntroductionComponent} from './components/introduction/introduction.component';
+import { PartyComponent} from './components/party/party.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { IntroductionComponent} from './components/introduction/introduction.com
     NotificationComponent,
     NotificationItemComponent,
     EditTitleComponent,
-    IntroductionComponent
+    IntroductionComponent,
+    PartyComponent
   ],
   imports: [
     BrowserModule,

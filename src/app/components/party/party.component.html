@@ -1,0 +1,28 @@
+<div class="youtube-container">
+  <div *ngIf="partySong$ | async" class="title">
+    {{ (partySong$ | async).title }}
+  </div>
+  <youtube-player
+    *ngIf="partySong$ | async"
+    #player
+    class="youtube"
+    [videoId]="(partySong$ | async).youtubeId"
+    (ready)="onReady($event)"
+    (stateChange)="onStateChange($event)"
+  ></youtube-player>
+  <div class="control-wrapper">
+    <button>
+      <span *ngIf="!isMuted" class="material-icons-round" (click)="toggleMute()"
+        >volume_off</span
+      >
+    </button>
+    <button>
+      <span
+        *ngIf="isMuted"
+        class="material-icons-round unmute-icon"
+        (click)="toggleMute()"
+        >volume_up</span
+      >
+    </button>
+  </div>
+</div>

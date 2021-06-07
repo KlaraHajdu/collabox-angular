@@ -21,7 +21,10 @@
       by {{ ownerName$ | async }}
     </div>
     <div class="icon-wrapper">
-      <button *ngIf="ownPlaylist || (!ownPlaylist && !locked)" class="tooltip-wrapper">
+      <button
+        *ngIf="ownPlaylist || (!ownPlaylist && !locked)"
+        class="tooltip-wrapper"
+      >
         <span class="material-icons-round add-icon" (click)="addSong()">
           playlist_add
         </span>
@@ -64,10 +67,16 @@
         <span class="material-icons-round" (click)="startParty()">
           music_note
         </span>
-        <div class="tooltip start-party-tooltip">Start a party</div>
+        <div class="tooltip start-party-tooltip">
+          {{ partyActive ? "Stop the party" : "Start a party" }}
+        </div>
       </button>
       <button *ngIf="ownPlaylist" class="tooltip-wrapper">
-        <span class="material-icons-round invite-icon" id="person-add" (click)="invite()">
+        <span
+          class="material-icons-round invite-icon"
+          id="person-add"
+          (click)="invite()"
+        >
           person_add
         </span>
         <div class="tooltip invite-tooltip">Invite others</div>
@@ -84,11 +93,26 @@
         </span>
         <div class="tooltip unfollow-tooltip">Unfollow playlist</div>
       </button>
+      <button
+        *ngIf="!ownPlaylist && (partySong$ | async)"
+        (click)="startParty()"
+        class="live-party tooltip-wrapper"
+      >
+        Live party
+        <div class="tooltip party-tooltip">{{partyActive? "Leave the party":"Join the live party"}}</div>
+      </button>
       <span *ngIf="toggleInvite" class="invite-text"
         >Invite with this id: {{ playlistId }}</span
       >
     </div>
     <playsong *ngIf="playSongActive" class="playSong"></playsong>
+    <party
+      *ngIf="partyActive"
+      class="party"
+      (close)="closeParty()"
+      [playlistId]="playlistId"
+      [isHost]="ownPlaylist"
+    ></party>
     <addsong *ngIf="addSongActive" class="add-song-component"></addsong>
     <songlist
       *ngIf="(songs$ | async)?.length > 0"
