@@ -14,21 +14,29 @@ import PlaylistType from 'src/app/types/PlaylistType';
 export class SonglistItemComponent implements OnInit {
   @Input() song: Song;
   @Input() canDelete: boolean;
+  @Input() ownPlaylist: boolean;
   message: string;
-  confirmationVisible: boolean
+  confirmationVisible: boolean;
+  playlistType: PlaylistType;
 
   constructor(private ngRedux: NgRedux<RootState>) {}
 
   ngOnInit(): void {
     this.message = "Are you sure you want to delete this song?"
+    if (this.ownPlaylist) {
+      this.playlistType = PlaylistType.ownPlaylist;
+    } else {
+      this.playlistType = PlaylistType.followedPlaylist;
+    }
   }
 
   upVote() {
+
     this.ngRedux.dispatch<any>(
       playlistsAsyncActions.vote({
         songId: this.song.id,
         voteType: VoteType.upVote,
-        playlistType: PlaylistType.ownPlaylist,
+        playlistType: this.playlistType,
       })
     );
   }
@@ -38,7 +46,7 @@ export class SonglistItemComponent implements OnInit {
       playlistsAsyncActions.vote({
         songId: this.song.id,
         voteType: VoteType.downVote,
-        playlistType: PlaylistType.ownPlaylist,
+        playlistType: this.playlistType,
       })
     );
   }
