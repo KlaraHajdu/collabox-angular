@@ -1,7 +1,7 @@
 <div class="landing-container">
   <sidebar class="sidebar"></sidebar>
   <div class="right-container">
-    <button (click)="authService.SignOut()">Logout</button>
+    <button (click)="authService.SignOut()" data-testid="logout-button">Logout</button>
     <router-outlet></router-outlet>
     <notification></notification>
   </div>
