@@ -2,7 +2,7 @@
   <div class="add-wrapper">
     <form class="form-wrapper" [formGroup]="addsongForm" (ngSubmit)="onSubmit()">
       <input class="add-input" formControlName="url" placeholder="Enter a valid youtube song url"/>
-      <button type="submit" class="submit-button">Add new song</button>
+      <button type="submit" [disabled]="!addsongForm.valid"  class="submit-button">Add new song</button>
     </form>
   </div>
 </div>

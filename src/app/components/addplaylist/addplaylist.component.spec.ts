@@ -3,10 +3,9 @@ import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MockNgRedux, NgReduxTestingModule} from '@angular-redux/store/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 import { AddPlaylistComponent } from './addplaylist.component';
-import { By } from '@angular/platform-browser';
-import { playlistsAsyncActions } from 'src/app/store/slices/playlists/slice';
 
 describe('AddplaylistComponent', () => {
   let component: AddPlaylistComponent;

@@ -21,7 +21,7 @@ export class AddsongComponent implements OnInit {
   }
 
   addsongForm = this.fb.group({
-    url: ['', [Validators.required, Validators.maxLength(140)]],
+    url: ['', [Validators.required, Validators.maxLength(240)]],
   })
 
   onSubmit() {
