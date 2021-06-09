@@ -21,7 +21,7 @@ export class FollowPlaylistComponent implements OnInit {
   }
 
   followForm = this.fb.group({
-    playlistId: ['', [Validators.minLength(20), Validators.maxLength(20)]],
+    playlistId: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(20)]],
   })
 
   onSubmit() {
