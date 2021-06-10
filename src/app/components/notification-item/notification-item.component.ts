@@ -12,7 +12,6 @@ import { notificationMessages } from '../../utils/notificationMessages';
   styleUrls: ['./notification-item.component.sass']
 })
 export class NotificationItemComponent implements OnInit {
-
   @Input() notification: Notification
   notificationMessages: any
 
@@ -20,7 +19,7 @@ export class NotificationItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.notificationMessages = notificationMessages
-    if (this.notification.severity !== SEVERITY.Error) {
+    if (this.notification?.severity !== SEVERITY.Error) {
       setTimeout(() => this.deleteNotification(), 3000)
     }
   }
