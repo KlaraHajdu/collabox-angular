@@ -4,17 +4,17 @@
   <div class="votes">votes: {{ song.votes }}</div>
   <div class="votebuttons">
     <button>
-      <span class="material-icons-round add-icon" (click)="upVote()">
+      <span class="material-icons-round add-icon" data-testid="upvote" (click)="upVote()">
         thumb_up_alt
       </span>
     </button>
     <button>
-      <span class="material-icons-round add-icon" (click)="downVote()">
+      <span class="material-icons-round add-icon" data-testid="downvote" (click)="downVote()">
         thumb_down_alt
       </span>
     </button>
     <button *ngIf="canDelete">
-      <span class="material-icons-round" (click)="deleteClick()"> delete </span>
+      <span class="material-icons-round" data-testid="delete" (click)="deleteClick()"> delete </span>
     </button>
   </div>
   <confirmation
