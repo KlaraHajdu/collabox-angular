@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/firestore'
 import PlaylistData from '../../types/PlaylistData';
 import PlaylistType from '../../types/PlaylistType';
