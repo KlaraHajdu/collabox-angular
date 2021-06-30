@@ -113,6 +113,16 @@
               "src/styles.sass"
             ],
             "scripts": []
+          },
+          "configurations": {
+            "localhost": {
+              "fileReplacements": [
+                {
+                    "replace": "src/environments/environment.ts",
+                    "with": "src/environments/environment.localhost.ts"
+                }
+            ]
+            }
           }
         },
         "lint": {

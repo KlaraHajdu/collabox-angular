@@ -27,4 +27,17 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should render the title', () => {
+    const compiled = fixture.nativeElement;
+
+    expect(compiled.querySelector('.title').textContent).toContain('COLLABOX');
+  });
+  it('should call login if login button is clicked', () => {
+    const compiled = fixture.nativeElement;
+    const spy = spyOn(authenticationServiceStub, 'GoogleAuth')
+
+    compiled.querySelector('button').click();
+
+    expect(spy).toHaveBeenCalled();
+  });
 });

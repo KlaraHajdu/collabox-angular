@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="setSeverityClass()">
+<div *ngIf="notification" class="container" [ngClass]="setSeverityClass()">
   <div class="message">
     {{ notificationMessages[notification.message] }}
   </div>

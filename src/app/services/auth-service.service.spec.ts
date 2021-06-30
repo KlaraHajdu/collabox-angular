@@ -1,19 +1,14 @@
+import { NgReduxTestingModule } from '@angular-redux/store/testing';
 import { TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from "@angular/router";
+import { AngularFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
+
 
 import { AuthService } from './auth-service.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-
-  // const firestoreSpy = jasmine.createSpyObj('AngularFirestore', {
-  //   });
-
-  // const fireAuthSpy = jasmine.createSpyObj('AngularFireAuth', {
-  //   });
 
   const firestoreStub = {}
 
@@ -25,7 +20,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule.withRoutes([]),],
+      imports: [ RouterTestingModule.withRoutes([]), NgReduxTestingModule],
       providers: [
         { provide: AngularFirestore, useValue: firestoreStub },
         { provide: AngularFireAuth, useValue: fireAuthStub}

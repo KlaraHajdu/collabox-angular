@@ -6,7 +6,7 @@
       <p *ngIf="followForm.get('playlistId').errors?.maxlength || followForm.get('playlistId').errors?.minlength" class="helper-text">
         Please enter a 20 digit-long id!
       </p>
-      <button type="submit" class="submit-button">Follow</button>
+      <button type="submit" [disabled]="!followForm.valid"  class="submit-button">Follow</button>
     </form>
   </div>
 </div>

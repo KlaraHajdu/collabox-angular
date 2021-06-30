@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgReduxTestingModule } from '@angular-redux/store/testing';
 
 import { PartyComponent } from './party.component';
+
 
 describe('PartyComponent', () => {
   let component: PartyComponent;
@@ -8,7 +10,8 @@ describe('PartyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PartyComponent ]
+      declarations: [ PartyComponent ],
+      imports: [NgReduxTestingModule]
     })
     .compileComponents();
   });
@@ -21,5 +24,12 @@ describe('PartyComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('is unmuted on render', () => {
+    const compiled = fixture.nativeElement;
+
+    const volumeButtonIcon = compiled.querySelector('.material-icons-round');
+
+    expect(volumeButtonIcon.textContent).toContain('volume_off');
   });
 });

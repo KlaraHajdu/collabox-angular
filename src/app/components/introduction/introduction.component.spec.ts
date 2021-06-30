@@ -22,4 +22,9 @@ describe('IntroductionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should show the title', () => {
+    const compiled = fixture.nativeElement;
+
+    expect(compiled.querySelector('.title').textContent).toContain('The social playlist experience');
+  });
 });
