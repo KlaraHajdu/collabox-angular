@@ -12,12 +12,15 @@ import { SidebarComponent } from './sidebar.component';
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
-  let router: Router;
+  let mockRouter = {
+    navigate: jasmine.createSpy('navigate')
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SidebarComponent],
       imports: [NgReduxTestingModule, RouterTestingModule.withRoutes([])],
+      providers: [{ provide: Router, useValue: mockRouter }]
     }).compileComponents();
   });
 
@@ -25,7 +28,7 @@ describe('SidebarComponent', () => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    router = TestBed.get(Router);
+
   });
 
   it('should create', fakeAsync(() => {
@@ -34,9 +37,24 @@ describe('SidebarComponent', () => {
 
   it('should navigate to home page', () => {
     const component = fixture.componentInstance;
-    const navigateSpy = spyOn(router, 'navigate');
 
     component.onClick();
-    expect(navigateSpy).toHaveBeenCalledWith(['/']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
+  });
+  it('should navigate to add playlist page if clicked on add button', () => {
+    const compiled = fixture.nativeElement;
+
+    compiled.querySelector('[data-testid="create-playlist"]').click();
+    fixture.detectChanges();
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/addplaylist']);
+  });
+  it('should navigate to follow playlist page if clicked on follow button', () => {
+    const compiled = fixture.nativeElement;
+
+    compiled.querySelector('[data-testid="follow-playlist"]').click();
+    fixture.detectChanges();
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/follow']);
   });
 });

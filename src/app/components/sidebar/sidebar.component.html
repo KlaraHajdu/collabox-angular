@@ -7,6 +7,7 @@
         <mat-icon
           class="material-icons-round"
           class="icon"
+          data-testid="create-playlist"
           (click)="createPlaylist()"
         >
           add
@@ -22,7 +23,7 @@
     <div class="subtitle-wrapper">
       <span class="subtitle">Followed playlists</span>
       <div class="tooltip-wrapper">
-        <mat-icon class="material-icons-round" class="icon" (click)="followPlaylist()"> add</mat-icon>
+        <mat-icon class="material-icons-round" class="icon" data-testid="follow-playlist" (click)="followPlaylist()"> add</mat-icon>
         <div class="tooltip sidebar-tooltip">Follow a playlist</div>
       </div>
     </div>
