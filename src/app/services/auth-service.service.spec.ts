@@ -1,8 +1,7 @@
 import { NgReduxTestingModule } from '@angular-redux/store/testing';
 import { TestBed } from '@angular/core/testing';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from "@angular/router";
+import { AngularFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
 
 
