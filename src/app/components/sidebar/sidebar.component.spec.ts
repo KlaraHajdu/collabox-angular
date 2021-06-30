@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+} from '@angular/core/testing';
+import { NgReduxTestingModule } from '@angular-redux/store/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 
@@ -11,10 +16,9 @@ describe('SidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SidebarComponent ],
-      imports: [ RouterTestingModule.withRoutes([]),]
-    })
-    .compileComponents();
+      declarations: [SidebarComponent],
+      imports: [NgReduxTestingModule, RouterTestingModule.withRoutes([])],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -24,9 +28,10 @@ describe('SidebarComponent', () => {
     router = TestBed.get(Router);
   });
 
-  it('should create', () => {
+  it('should create', fakeAsync(() => {
     expect(component).toBeTruthy();
-  });
+  }));
+
   it('should navigate to home page', () => {
     const component = fixture.componentInstance;
     const navigateSpy = spyOn(router, 'navigate');
