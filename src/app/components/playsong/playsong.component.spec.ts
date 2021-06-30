@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockNgRedux } from '@angular-redux/store/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Subject } from 'rxjs';
+import RootState from 'src/app/store/RootState';
+import Song from 'src/app/types/Song';
 
 import { PlaysongComponent } from './playsong.component';
 
@@ -11,6 +15,27 @@ describe('PlaysongComponent', () => {
       declarations: [ PlaysongComponent ]
     })
     .compileComponents();
+
+    const songsStub: Subject<Song[]> = MockNgRedux.getSelectorStub<
+    RootState,
+    Song[]
+  >('songs');
+
+  songsStub.next([
+    {
+      id: 'fake song id',
+      youtubeId: 'fake youtube id',
+      title: 'song title',
+      votes: 8,
+      userId: 'fake user id',
+      userName: 'fake user name',
+      upVoted: true,
+      downVoted: false,
+    },
+  ]);
+
+  songsStub.complete();
+
   });
 
   beforeEach(() => {
@@ -19,7 +44,7 @@ describe('PlaysongComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  xit('should create', fakeAsync(() => {
     expect(component).toBeTruthy();
-  });
+  }));
 });
