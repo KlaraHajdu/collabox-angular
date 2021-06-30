@@ -192,13 +192,33 @@ const checkIfSongExists = async (playlistId: string, youtubeId: string) => {
     return !(querySnapshot.docs.length === 0)
 }
 
-const deleteSong = async (playlistId: string, songId: string) => {
+const deleteSong = async (playlistId: string, songId: string, owner: string, followers: string[]) => {
     await database
     .collection('playlists')
     .doc(playlistId)
     .collection('songs')
     .doc(songId)
     .delete()
+
+    await database
+    .collection('users')
+    .doc(owner)
+    .collection('ownPlaylists')
+    .doc(playlistId)
+    .update({[`votes.${songId}`]: firebase.firestore.FieldValue.delete()})
+
+
+    if (followers) {
+      followers.forEach(async followerId =>
+        await database
+        .collection('users')
+        .doc(followerId)
+        .collection('otherPlaylists')
+        .doc(playlistId)
+        .update({[`votes.${songId}`]: firebase.firestore.FieldValue.delete()})
+      )
+    }
+
 }
 
 const checkVoteStatus = async (userId: string, playlistId: string, songId: string, playlistType: PlaylistType) => {

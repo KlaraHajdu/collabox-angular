@@ -169,9 +169,10 @@ const deleteSong = createAsyncThunk<
                 return thunkApi.rejectWithValue("no_currentPlaylist")
             }
             const playlistId = currentPlaylist.id
+            const {owner, followers} = currentPlaylist
             const songId = payload
             try {
-                await firestoreApi.deleteSong(playlistId, songId)
+                await firestoreApi.deleteSong(playlistId, songId, owner, followers )
                 return 'song_deleted'
             } catch (error) {
                 return thunkApi.rejectWithValue('database_error')
