@@ -1,4 +1,4 @@
-import { MockNgRedux } from '@angular-redux/store/testing';
+import { MockNgRedux, NgReduxTestingModule } from '@angular-redux/store/testing';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 import RootState from 'src/app/store/RootState';
@@ -12,7 +12,8 @@ describe('PlaysongComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlaysongComponent ]
+      declarations: [ PlaysongComponent ],
+      imports: [NgReduxTestingModule]
     })
     .compileComponents();
 
