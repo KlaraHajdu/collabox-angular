@@ -37,8 +37,10 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromOtherPlaylists(this.userId))
-    this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromOwnPlaylists(this.userId))
+    if (this.userId){
+      this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromOtherPlaylists(this.userId))
+      this.ngRedux.dispatch<any>(playlistsAsyncActions.unsubscribeFromOwnPlaylists(this.userId))
+    }
   }
 
   onClick() {

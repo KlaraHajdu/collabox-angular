@@ -3,6 +3,7 @@
   <youtube-player
     #player
     class="youtube"
+    playsinline="true"
     [videoId]="currentSong.youtubeId"
     (ready)="onReady($event)"
     (stateChange)="onStateChange($event)"
