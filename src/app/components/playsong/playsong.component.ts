@@ -32,7 +32,7 @@ export class PlaysongComponent implements OnInit {
 
   ngOnInit(): void {
     const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api?autoplay=1';
+    tag.src = 'https://www.youtube.com/iframe_api?autoplay=1&playsinline=1&enablejsapi=1';
     tag.id='youtube-player-playsong';
     document.body.appendChild(tag);
 
