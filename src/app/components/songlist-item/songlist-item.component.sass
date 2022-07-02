@@ -1,34 +1,49 @@
 @use "../../../styles"
 
 .container
-  // position: relative
   display: flex
+  flex-direction: column
   justify-content: space-between
-  align-items: center
+  flex-wrap: wrap
   border-radius: 10px
   background: styles.$theme-color-green
   color: styles.$theme-color-dark-green
-  padding: 1rem
+  padding:  0.5rem 1rem 0.5rem 1rem
   margin-top: 0.5rem
+
+.bottomContainer
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  margin-top: 0.25rem
+
+.voteContainer
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+
+.voteButtons
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
 
 .title
   font-size: 1rem
   font-weight: 600
-  flex: 5
   overflow: hidden
-  white-space: nowrap
   text-overflow: ellipsis
   margin-right: 4px
 
 .addedBy
-  padding: 0 0.5rem 0 0.5rem
   font-size: 0.8rem
-  flex: 2
+  margin: auto
+  margin-left: 0
 
 .votes
   padding: 0 0.5rem 0 0.5rem
   font-size: 0.8rem
-  flex: 1
+  margin: auto
+  margin-left: 0
 
 button
   background-color: transparent
